@@ -49,29 +49,35 @@
                         <thead>
                             <tr>
                                 <th><button style="width: 20px;" ng-click="expanded = !expanded" expand><span ng-bind="expanded ? '-' : '+'"></span></button></th>
-                                <th ng-repeat="(sh, sv) in sections[0]">{{sh}}</th>                               
+                                <th class=""> Sections </th>
+                                <th class=""> SectionTotal </th>
+                                <th class=""> SectionId </th>
+                                <th class=""> SubSections </th>
+                                @*<th ng-repeat="(sh, sv) in sections[0]">{{sh}}</th>*@
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="section in sections" ng-show="expanded">
                                 <td> {{$index+1}}</td>
                                 <td ng-repeat="subsections in section" ng-init="isArr = isArray(subsections)">
-                                  
+
                                     <table ng-if="isArr" class="table table-condensed table-bordered table-striped" style="margin-bottom:0px">
                                         <thead>
                                             <tr>
                                                 <td>
                                                     <button style="width: 20px;" ng-click="expandedss = !expandedss" expand><span ng-bind="expandedss ? '-' : '+'"></span></button>
                                                 </td>
-                                                <th ng-repeat="(sj, ssv) in subsections[0]">{{sj}} </th> 
-                                                <td> SubSectons </td>
+                                                <th ng-repeat="(sj, ssv) in subsections[0]">{{sj}} </th>
+                                                <td> Lines </td>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="subs in subsections" ng-show="expandedss">                                            
+                                            <tr ng-repeat="subs in subsections" ng-show="expandedss">
                                                 <td> {{$index+1}}</td>
                                                 <td ng-repeat="(sk, sv) in subs">{{sv}}</td>
-                                                <td> {{$index+1}}</td>
+                                                <td>
+                                                    <button style="width: 20px;" ng-click="expandedl = !expandedl" expand><span ng-bind="expandedl ? '-' : '+'"></span></button>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

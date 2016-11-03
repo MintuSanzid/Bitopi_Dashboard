@@ -8,3 +8,8 @@ E:\Bitopi_Code_Demo\Dashboard_HR\Dashboard_WebApp\Dashboard_WebApp\DashboardHR.M
 E:\Bitopi_Code_Demo\Dashboard_HR\Dashboard_WebApp\Dashboard_WebApp\DashboardHR.Models\obj\Debug\DashboardHR.Models.csprojResolveAssemblyReference.cache
 E:\Bitopi_Code_Demo\Dashboard_HR\Dashboard_WebApp\Dashboard_WebApp\DashboardHR.Models\obj\Debug\DashboardHR.Models.dll
 E:\Bitopi_Code_Demo\Dashboard_HR\Dashboard_WebApp\Dashboard_WebApp\DashboardHR.Models\obj\Debug\DashboardHR.Models.pdb
+E:\Dashboard_HR_GitHub\DashboardHR.Models\bin\Debug\DashboardHR.Models.dll
+E:\Dashboard_HR_GitHub\DashboardHR.Models\bin\Debug\DashboardHR.Models.pdb
+E:\Dashboard_HR_GitHub\DashboardHR.Models\obj\Debug\DashboardHR.Models.csprojResolveAssemblyReference.cache
+E:\Dashboard_HR_GitHub\DashboardHR.Models\obj\Debug\DashboardHR.Models.dll
+E:\Dashboard_HR_GitHub\DashboardHR.Models\obj\Debug\DashboardHR.Models.pdb

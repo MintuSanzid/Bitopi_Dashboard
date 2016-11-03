@@ -39,12 +39,13 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
                     if (section.status === 200) {
                         $http.get("/Configuration/DashboardHRFSubSectionJson?companyCode=" + companyCode).then(function (subsection) {
                             if (subsection.data.length > 0 && subsection.status === 200) {
-
-                                var insertedSectiondata = $scope.InsertSection(dept.data, section.data, subsection.data, companyCode);
+                                var companyObj = {};
+                                companyObj.companyCode = companyCode;
+                                var insertedSectiondata = $scope.InsertSection(dept.data, section.data, subsection.data, companyObj);
                                 $scope.departments = insertedSectiondata;
                                 $scope.cols = Object.keys($scope.departments[0]);
                             }
-                           
+
                         });
                     }
                 });
@@ -53,48 +54,50 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         ngDialog.open({ template: "Validation_Table", controller: "ConfigurationController", className: "ngdialog-theme-default", scope: $scope });
     };
 
-    $scope.InsertSection = function (dept, section, ssection, companyCode) {
+    $scope.InsertSection = function (dept, section, ssection, companyObj) {
         if (dept.length > 0) {
             for (var i = 0; i < dept.length; i++) {
-                var id = dept[i].DeptId;
+                companyObj.deptId = dept[i].DeptId;
                 var insertedSectiondata = [];
                 for (var j = 0; j < section.length; j++) {
-                    if (section[j].DeptId === id) {
-                        var sectionId = section[j].SectionId;
-                        var subsections = [];
-                        for (var k = 0; k < ssection.length; k++) {
-                            if (ssection[k].SectionId === sectionId) {
-                                subsections.push(ssection[k]);
-                            }
-                        }
-                        //var ssections = $scope.insertSubSection(section[j], ssection, companyCode);
+
+                    companyObj.sectionId = section[j].SectionId;
+                    if (section[j].DeptId === companyObj.deptId && section[j].SectionId === companyObj.sectionId) {
+                        
                         delete section[j].DeptId;
                         //delete section[j].SectionId;
                         insertedSectiondata.push(section[j]);
-                        var insertedSSectiondata = $scope.insertedSubSection(insertedSectiondata, ssection, companyCode);
-
+                        $scope.insertedSubSection(insertedSectiondata, ssection, companyObj);
                     }
                 }
-                dept[i].sections = insertedSectiondata;
+                dept[i].Sections = insertedSectiondata;
                 delete dept[i].DeptId;
             }
         };
         return dept;
     };
 
-    $scope.insertedSubSection = function (sectiondata, sSection, companyCode) {
-        if (sSection.length > 0) {
-            var id = sectiondata[0].SectionId;
-            var subSections = [];
-            for (var i = 0; i < sSection.length; i++) {
-                if (sSection[i].SectionId === id) {
-                    delete sSection[i].SSectionId;
-                    var d = sSection[i];
-                    subSections.push(d);
+    $scope.insertedSubSection = function (sectiondata, sSection, companyObj) {
+        if (sectiondata.length > 0 && sSection.length > 0) {
+          
+            for (var j = 0; j < sectiondata.length; j++) {
+                companyObj.sectionId = sectiondata[j].SectionId;
+                var subSections = [];
+
+                for (var i = 0; i < sSection.length; i++) {
+                    companyObj.ssectionId = sSection[i].SSectionId;
+                    if (sSection[i].DeptId === companyObj.deptId && sSection[i].SectionId === companyObj.sectionId && sSection[i].SSectionId === companyObj.ssectionId) {
+
+                        //delete sSection[i].DeptId;
+                        //delete sSection[i].SectionId;
+                        delete sSection[i].SSectionId;
+                        subSections.push(sSection[i]);
+                        //$scope.insertedLine(insertedSectiondata, ssection, deptId, companyCode);
+                    }
+                    sectiondata[j].SubSections = subSections;
+                    //delete sectiondata[j].SectionId;
                 }
             }
-            sectiondata[0].SubSections = subSections;
-            delete sectiondata[0].SectionId;
         }
         return sectiondata;
     };

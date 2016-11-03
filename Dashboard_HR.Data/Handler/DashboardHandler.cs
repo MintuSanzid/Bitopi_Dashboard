@@ -186,7 +186,8 @@ namespace Dashboard_HR.Data.Handler
                         SSection = aRow["SubSection"].ToString(),
                         SSectionTotal = (int)aRow["SSectionTotal"],
                         SSectionId = (int)aRow["SSecCD"],
-                        SectionId = (int)aRow["SecCD"]
+                        SectionId = (int)aRow["SecCD"],
+                        DeptId = (int) aRow["DeptCD"]
                     };
                     _ssections.Add(aSSection);
                 }

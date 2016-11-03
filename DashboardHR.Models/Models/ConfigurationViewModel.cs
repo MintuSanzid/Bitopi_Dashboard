@@ -57,6 +57,7 @@
         public int SSectionTotal { get; set; }
         public int SSectionId { get; set; }
         public int SectionId { get; set; }
+        public int DeptId { get; set; } 
     }
     public class Line
     {
