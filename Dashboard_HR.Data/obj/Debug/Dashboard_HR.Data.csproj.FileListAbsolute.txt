@@ -16,3 +16,12 @@ E:\Bitopi_Code_Demo\Dashboard_HR\Dashboard_WebApp\Dashboard_WebApp\Dashboard_HR.
 E:\Bitopi_Code_Demo\Dashboard_HR\Dashboard_WebApp\Dashboard_WebApp\Dashboard_HR.Data\bin\Debug\Dashboard_HR.Repository.dll
 E:\Bitopi_Code_Demo\Dashboard_HR\Dashboard_WebApp\Dashboard_WebApp\Dashboard_HR.Data\bin\Debug\DashboardHR.Models.pdb
 E:\Bitopi_Code_Demo\Dashboard_HR\Dashboard_WebApp\Dashboard_WebApp\Dashboard_HR.Data\bin\Debug\Dashboard_HR.Repository.pdb
+E:\Dashboard_HR_GitHub\Dashboard_HR.Data\bin\Debug\Dashboard_HR.Data.dll
+E:\Dashboard_HR_GitHub\Dashboard_HR.Data\bin\Debug\Dashboard_HR.Data.pdb
+E:\Dashboard_HR_GitHub\Dashboard_HR.Data\bin\Debug\DashboardHR.Models.dll
+E:\Dashboard_HR_GitHub\Dashboard_HR.Data\bin\Debug\Dashboard_HR.Repository.dll
+E:\Dashboard_HR_GitHub\Dashboard_HR.Data\bin\Debug\DashboardHR.Models.pdb
+E:\Dashboard_HR_GitHub\Dashboard_HR.Data\bin\Debug\Dashboard_HR.Repository.pdb
+E:\Dashboard_HR_GitHub\Dashboard_HR.Data\obj\Debug\Dashboard_HR.Data.dll
+E:\Dashboard_HR_GitHub\Dashboard_HR.Data\obj\Debug\Dashboard_HR.Data.pdb
+E:\Dashboard_HR_GitHub\Dashboard_HR.Data\obj\Debug\Dashboard_HR.Data.csprojResolveAssemblyReference.cache

@@ -76,91 +76,127 @@ namespace Dashboard_HR.Data.Handler
             }
             return _employees;
         }
-        
+
         private List<Division> ListGenerateDivision(DataTable aDivision)
         {
-            _divisions = new List<Division>();
-            foreach (DataRow aRow in aDivision.Rows)
+            try
             {
-                var division = new Division
+                _divisions = new List<Division>();
+                foreach (DataRow aRow in aDivision.Rows)
                 {
-                    DivisionId = aRow[0].ToString(),
-                    DivisionName = aRow[1].ToString(),
-                    DivisionTotal = (int)aRow[2],
-                    Unallocated = (int)aRow[3],
-                    CompanyName = aRow[4].ToString(),
-                    CompanyCode = aRow[5].ToString()
-                };
-                _divisions.Add(division);
+                    var division = new Division
+                    {
+                        DivisionId = aRow[0].ToString(),
+                        DivisionName = aRow[1].ToString(),
+                        DivisionTotal = (int)aRow[2],
+                        Unallocated = (int)aRow[3],
+                        CompanyName = aRow[4].ToString(),
+                        CompanyCode = aRow[5].ToString()
+                    };
+                    _divisions.Add(division);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return _divisions;
             }
             return _divisions;
         }
         private List<ConpanyUnit> ListGenerateUnit(DataTable aCompanyUnit)
         {
-            _conpanyUnits = new List<ConpanyUnit>();
-            foreach (DataRow aRow in aCompanyUnit.Rows)
+           // UnitCD, DT.UnitName, COUNT(*) UnitTotal, (SELECT COUNT(*) Unallocated
+            try
             {
-                var conpanyUnit = new ConpanyUnit
+                _conpanyUnits = new List<ConpanyUnit>();
+                foreach (DataRow aRow in aCompanyUnit.Rows)
                 {
-                    UnitId = (string)aRow[0],
-                    UnitName = (string)aRow[1],
-                    UnitTotal = (int)aRow[2],
-                    Unallocated = (int)aRow[3],
-                    CompanyName = (string)aRow[4],
-                    CompanyCode = (string)aRow[5],
-                };
-                _conpanyUnits.Add(conpanyUnit);
+                    var conpanyUnit = new ConpanyUnit
+                    {
+                        UnitId = (string)aRow["UnitCD"],
+                        UnitName = (string)aRow["UnitName"],
+                        UnitTotal = (int)aRow["UnitTotal"],
+                        Unallocated = (int)aRow["Unallocated"],
+                        //CompanyName = (string)aRow[4],
+                        //CompanyCode = (string)aRow[5],
+                    };
+                    _conpanyUnits.Add(conpanyUnit);
+                }
+            }
+            catch (Exception ex)
+            {
+                return _conpanyUnits;
             }
             return _conpanyUnits;
         }
         private List<Department> ListGenerate(DataTable aDataTable)
         {
-            _aDepartments = new List<Department>();
-            foreach (DataRow aRow in aDataTable.Rows)
+            try
             {
-                var aDepartment = new Department
+                _aDepartments = new List<Department>();
+                foreach (DataRow aRow in aDataTable.Rows)
                 {
-                    DeptId = (int)aRow["DeptCD"],
-                    DeptName = aRow["Department"].ToString(),
-                    DeptTotal = (int)aRow["DepartmentTotal"]
-                };
-                _aDepartments.Add(aDepartment);
+                    var aDepartment = new Department
+                    {
+                        DeptId = (int)aRow["DeptCD"],
+                        DeptName = aRow["Department"].ToString(),
+                        DeptTotal = (int)aRow["DepartmentTotal"]
+                    };
+                    _aDepartments.Add(aDepartment);
+                }
+            }
+            catch (Exception ex)
+            {
+                return _aDepartments;
             }
             return _aDepartments;
         }
         private List<Section> ListGenerateSection(DataTable aDataTable)
         {
-            _sections = new List<Section>();
-            foreach (DataRow aRow in aDataTable.Rows)
+            try
             {
-                var aSection = new Section
+                _sections = new List<Section>();
+                foreach (DataRow aRow in aDataTable.Rows)
                 {
-                    SectionName = aRow["Section"].ToString(),
-                    SectionTotal = Convert.ToInt32(aRow["SectionTotal"].ToString()),
-                    SectionId = (int)aRow["SecCD"],
-                    DeptId = (int)aRow["DeptCD"]
-                };
-                _sections.Add(aSection);
+                    var aSection = new Section
+                    {
+                        SectionName = aRow["Section"].ToString(),
+                        SectionTotal = Convert.ToInt32(aRow["SectionTotal"].ToString()),
+                        SectionId = (int)aRow["SecCD"],
+                        DeptId = (int)aRow["DeptCD"]
+                    };
+                    _sections.Add(aSection);
+                }
+            }
+            catch (Exception)
+            {
+                return _sections;
             }
             return _sections;
         }
         public List<SubSection> ListGenerateSubSection(DataTable aDataTable)
         {
-            _ssections = new List<SubSection>();
-            foreach (DataRow aRow in aDataTable.Rows)
+            try
             {
-                var aSSection = new SubSection
+                _ssections = new List<SubSection>();
+                foreach (DataRow aRow in aDataTable.Rows)
                 {
-                    SSection = aRow["SubSection"].ToString(),
-                    SSectionTotal = (int)aRow["SSectionTotal"],
-                    SSectionId = (int)aRow["SSecCD"],
-                    SectionId = (int)aRow["SecCD"]
-                };
-                _ssections.Add(aSSection);
+                    var aSSection = new SubSection
+                    {
+                        SSection = aRow["SubSection"].ToString(),
+                        SSectionTotal = (int)aRow["SSectionTotal"],
+                        SSectionId = (int)aRow["SSecCD"],
+                        SectionId = (int)aRow["SecCD"]
+                    };
+                    _ssections.Add(aSSection);
+                }
+            }
+            catch (Exception)
+            {
+                return _ssections;
             }
             return _ssections;
         }
-
-
+        
     }
 }

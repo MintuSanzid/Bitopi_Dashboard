@@ -49,7 +49,7 @@ namespace Dashboard_HR.Repository.Repository
                 ADataTable = new DataTable();
                 try
                 {
-                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_UNIT]", conn);
+                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_UNIT_TEST]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", "BGL"));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;

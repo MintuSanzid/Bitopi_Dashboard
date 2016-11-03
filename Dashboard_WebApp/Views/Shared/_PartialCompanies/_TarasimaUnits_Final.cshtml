@@ -1,8 +1,5 @@
 ﻿
 <p>
-    @*<span class="ng-scope bold">
-            <i class="glyphicon glyphicon-arrow-down"></i>
-        </span>*@
     <label class="table" style="border-style: solid; border-width: 1px;">
         <span class="col-md-2"> <i class="glyphicon glyphicon-arrow-down"></i> Units </span>
         <span class="col-md-2" style="width: 230px;"> <i class="glyphicon glyphicon-briefcase"></i> Budget </span>
@@ -51,37 +48,34 @@
                     <table ng-if="isArr" class="table table-condensed table-bordered table-striped" style="margin-bottom:0px">
                         <thead>
                             <tr>
-                                <td>
-                                    <button style="width: 20px;" ng-click="expanded = !expanded" expand><span ng-bind="expanded ? '-' : '+'"></span></button>
-                                </td>
-                                <th ng-repeat="(sh, sv) in sections[0]">{{sh}}</th>
-                                <td> SubSectons </td>
+                                <th><button style="width: 20px;" ng-click="expanded = !expanded" expand><span ng-bind="expanded ? '-' : '+'"></span></button></th>
+                                <th ng-repeat="(sh, sv) in sections[0]">{{sh}}</th>                               
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="sub in sections" ng-show="expanded">
+                            <tr ng-repeat="section in sections" ng-show="expanded">
                                 <td> {{$index+1}}</td>
-                                <td ng-repeat="(sk, sv) in sub">{{sv}}</td>
-                                <td>
-                                    @*Here SubSection Table*@
+                                <td ng-repeat="subsections in section" ng-init="isArr = isArray(subsections)">
+                                  
                                     <table ng-if="isArr" class="table table-condensed table-bordered table-striped" style="margin-bottom:0px">
                                         <thead>
                                             <tr>
                                                 <td>
                                                     <button style="width: 20px;" ng-click="expandedss = !expandedss" expand><span ng-bind="expandedss ? '-' : '+'"></span></button>
                                                 </td>
-                                                <th ng-repeat="(sh, sv) in sections[0]">{{sh}}</th> @*here will be sebsection*@
+                                                <th ng-repeat="(sj, ssv) in subsections[0]">{{sj}} </th> 
                                                 <td> SubSectons </td>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="sub in sections" ng-show="expandedss"> @*here will be sebsection*@
+                                            <tr ng-repeat="subs in subsections" ng-show="expandedss">                                            
                                                 <td> {{$index+1}}</td>
-                                                <td ng-repeat="(sk, sv) in sub">{{sv}}</td>
-                                                <td> SubSecton {{$index+1}}</td>
+                                                <td ng-repeat="(sk, sv) in subs">{{sv}}</td>
+                                                <td> {{$index+1}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <span ng-if="!isArr">{{subsections}}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -91,50 +85,6 @@
             </tr>
         </tbody>
     </table>
-
-
-
-
-    @*<h2 class="h2 text-center"> Table Demo </h2>
-        <br />*@
-    @*<table id="example" class="table table-condensed table-bordered table-striped export-table">
-            <tr>
-                <th><input type="button" sections="exportAction" ng-click="exportAction()" /> </th>
-                <th><label> {{companyname}} </label></th>
-            </tr>
-            <tr>
-                <th> Sr. </th>
-                <th> Budget Code </th>
-                <th> DeptId </th>
-                <th> DeptName </th>
-                <th> DeptTotal </th>
-                <th> Line </th>
-                <th> Desig. </th>
-                <th> Budget </th>
-                <th> Act </th>
-                <th> Access </th>
-                <th> Short  </th>
-                <th> Remarks </th>
-            </tr>
-            <tr ng-repeat="x in departments | orderBy : 'Country'">
-                <td class="center "><img id="{{ $index+1 }}" ng-click="toggleChildRow($event)" src="http://i.imgur.com/SD7Dz.png"></td>
-                <td>{{ $index+1 }}</td>
-                <td>{{ x.BudgetCode }}</td>
-                <td>{{ x.DeptId }}</td>
-                <td>{{ x.DeptName }}</td>
-                <td>{{ x.DeptTotal }}</td>
-                <td>{{ x.Name }}</td>
-                <td>{{ x.Country }}</td>
-                <td>{{ x.Name }}</td>
-                <td>{{ x.Country }}</td>
-                <td>{{ x.Country }}</td>
-                <td>{{ x.Country }}</td>
-                <td> </td>
-            </tr>
-
-        </table>*@
-
-
 </script>
 
 

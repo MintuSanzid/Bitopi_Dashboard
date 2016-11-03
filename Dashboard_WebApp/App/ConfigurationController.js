@@ -5,17 +5,19 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
     $scope.companyname = "Baridhi Grarments Limited (BGL)";
     function openngDiologValidationUnit() {
         $http.get("/Configuration/DashboardDivisionJsonData").then(function (response) {
-            if (response.status === 200) {
+            if (response.data.length > 0 && response.status === 200) {
                 $scope._divisions = response.data;
                 $scope.companycode = response.data[0].CompanyCode;
-                $scope.companyname = response.data[0].CompanyName + "(" + response.data[0].CompanyCode + ")";
+                $scope.companyname = response.data[0].CompanyName + " (" + response.data[0].CompanyCode + ")";
             }
         });
         $http.get("/Configuration/DashboardUnitJsonData").then(function (response) {
-            $scope._units = response.data;
-            $scope.companytotal = $scope._getcompanytotal(response.data);
-            $scope.companyUnallocated = response.data[0].Unallocated;
-            $scope.companybudgeted = $scope.companytotal + response.data[0].Unallocated;
+            if (response.data.length > 0 && response.status === 200) {
+                $scope._units = response.data;
+                $scope.companytotal = $scope._getcompanytotal(response.data);
+                $scope.companyUnallocated = response.data[0].Unallocated;
+                $scope.companybudgeted = $scope.companytotal + response.data[0].Unallocated;
+            }
         });
     }
     openngDiologValidationUnit();
@@ -36,10 +38,13 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
                 $http.get("/Configuration/DashboardHRFSectionJson?companyCode=" + companyCode).then(function (section) {
                     if (section.status === 200) {
                         $http.get("/Configuration/DashboardHRFSubSectionJson?companyCode=" + companyCode).then(function (subsection) {
+                            if (subsection.data.length > 0 && subsection.status === 200) {
 
-                            var data = $scope.InsertSection(dept.data, section.data, subsection.data, companyCode);
-                            $scope.departments = data;
-                            $scope.cols = Object.keys($scope.departments[0]);
+                                var insertedSectiondata = $scope.InsertSection(dept.data, section.data, subsection.data, companyCode);
+                                $scope.departments = insertedSectiondata;
+                                $scope.cols = Object.keys($scope.departments[0]);
+                            }
+                           
                         });
                     }
                 });
@@ -52,45 +57,46 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         if (dept.length > 0) {
             for (var i = 0; i < dept.length; i++) {
                 var id = dept[i].DeptId;
-                var sections = [];
+                var insertedSectiondata = [];
                 for (var j = 0; j < section.length; j++) {
                     if (section[j].DeptId === id) {
                         var sectionId = section[j].SectionId;
                         var subsections = [];
                         for (var k = 0; k < ssection.length; k++) {
-                            if (ssection[k].SectionId === sectionId) { 
+                            if (ssection[k].SectionId === sectionId) {
                                 subsections.push(ssection[k]);
                             }
                         }
                         //var ssections = $scope.insertSubSection(section[j], ssection, companyCode);
                         delete section[j].DeptId;
                         //delete section[j].SectionId;
-                        sections.push(section[j]);
+                        insertedSectiondata.push(section[j]);
+                        var insertedSSectiondata = $scope.insertedSubSection(insertedSectiondata, ssection, companyCode);
+
                     }
                 }
-                dept[i].sections = sections;
+                dept[i].sections = insertedSectiondata;
                 delete dept[i].DeptId;
             }
         };
         return dept;
     };
 
-    $scope.insertSubSection = function (asection, ssection, companyCode) {
-        if (asection.SectionId > -1 && ssection.length > 0) {
-            var id = asection.SectionId;
-
-            for (var i = 0; i < ssection.length; i++) {
-                var aSubSection = [];
-                if (ssection[i].SectionId === id) {
-                    delete ssection[i].SSectionId;
-                    var d = ssection[i];
-                    aSubSection.push(d);
+    $scope.insertedSubSection = function (sectiondata, sSection, companyCode) {
+        if (sSection.length > 0) {
+            var id = sectiondata[0].SectionId;
+            var subSections = [];
+            for (var i = 0; i < sSection.length; i++) {
+                if (sSection[i].SectionId === id) {
+                    delete sSection[i].SSectionId;
+                    var d = sSection[i];
+                    subSections.push(d);
                 }
-                ssection[i].SubSection = aSubSection;
-                //delete ssection[i].SectionId;
             }
+            sectiondata[0].SubSections = subSections;
+            delete sectiondata[0].SectionId;
         }
-        return ssection;
+        return sectiondata;
     };
 
 
@@ -100,9 +106,8 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
 
     $scope._openUnallocated = function (companyCode) {
         $http.get("/Configuration/DashboardUnallocatedEmpList?companyCode=" + companyCode).then(function (response) {
-            if (response.status===200) {
+            if (response.data.length > 0 && response.status === 200) {
                 $scope.employees = response.data;
-
             }
         });
         ngDialog.open({ template: "UnallocatedEmpList_Table", controller: "ConfigurationController", className: "ngdialog-theme-default", scope: $scope });
