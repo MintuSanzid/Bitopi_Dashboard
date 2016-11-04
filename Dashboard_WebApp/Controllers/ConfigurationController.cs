@@ -59,6 +59,11 @@ namespace Dashboard_WebApp.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult DashboardAllocatedEmpList(CompanyCode companyCode)
+        {
+            var data = _aDashboardHandler.GetHrAllocatedEmpList(companyCode);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
 
 

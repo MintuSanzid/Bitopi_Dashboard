@@ -51,12 +51,18 @@ namespace Dashboard_HR.Data.Handler
             var data = _aDashboardHr.GetHrSubSectionsFromDb(companyCode);
             return ListGenerateSubSection(data);
         }
-
+        
         public List<Employee> GetHrUnallocatedEmpList(string companyCode)
         {
             _aDashboardHr = new DashboardHr();
             var data = _aDashboardHr.GetHrUnallocatedEmpListFromDb(companyCode);
             return UnallocatedEmpListGenerate(data);
+        }
+        public List<Employee> GetHrAllocatedEmpList(CompanyCode companyObj) 
+        {
+            _aDashboardHr = new DashboardHr(); 
+            var data = _aDashboardHr.GetHrAllocatedEmpListFromDb(companyObj.Company,companyObj.Dept, companyObj.Section, companyObj.SubSection); 
+            return AllocatedEmpListGenerate(data);
         }
         private List<Employee> UnallocatedEmpListGenerate(DataTable employee)
         {
@@ -76,6 +82,27 @@ namespace Dashboard_HR.Data.Handler
             }
             return _employees;
         }
+        private List<Employee> AllocatedEmpListGenerate(DataTable employee)
+        {
+            _employees = new List<Employee>();
+            foreach (DataRow aRow in employee.Rows)
+            {
+                //AE.CompanyName, AE.BudgetCode, AE.CompanyShortName, AE.EmployeeCode, E.EmployeeName, E.Designation,
+                //AE.SubSection, 'Line one' AS Line 
+                var aEmployee = new Employee
+                {
+                    EmployeeCode = aRow["EmployeeCode"].ToString(),
+                    EmployeeName = aRow["EmployeeName"].ToString(),
+                    Designation = aRow["Designation"].ToString(),
+                    BudgetCode = aRow["BudgetCode"].ToString(),
+                    SubSection = aRow["SubSection"].ToString(),
+                    Line=aRow["Line"].ToString(),
+                    Total = Convert.ToDouble(aRow["Total"].ToString())
+                };
+                _employees.Add(aEmployee);
+            }
+            return _employees;
+        } 
 
         private List<Division> ListGenerateDivision(DataTable aDivision)
         {

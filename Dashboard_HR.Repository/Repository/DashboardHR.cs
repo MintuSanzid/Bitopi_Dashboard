@@ -67,6 +67,7 @@ namespace Dashboard_HR.Repository.Repository
                 }
             }
         }
+        
         public DataTable GetHrDepartmentsFromDb(string companyCode)
         {
             using (var conn = new SqlConnection(Con))
@@ -163,6 +164,35 @@ namespace Dashboard_HR.Repository.Repository
                 {
                     cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_AllEmployeeDetails]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyCode));
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand = cmd;
+                    da.Fill(ADataTable);
+                    return ADataTable;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    conn.Close();
+                }
+            }
+        }
+
+        public DataTable GetHrAllocatedEmpListFromDb(string company, string dept, string section, string subSection)
+        {
+            using (var conn = new SqlConnection(Con))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                SqlDataAdapter da = new SqlDataAdapter();
+                ADataTable = new DataTable();
+                try
+                {
+                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_AllocatedEmployeeDetails]", conn);
+                    cmd.Parameters.Add(new SqlParameter("@CompanyCode", company));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;
                     da.Fill(ADataTable);

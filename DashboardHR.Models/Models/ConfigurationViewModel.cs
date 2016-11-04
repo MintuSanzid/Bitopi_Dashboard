@@ -8,6 +8,13 @@
         public Employee AnEmployee { get; set; }
 
     }
+    public class CompanyCode
+    {
+        public string Company { get; set; }
+        public string Dept { get; set; }
+        public string Section { get; set; } 
+        public string SubSection { get; set; } 
+    }
 
     public class Employee
     {
@@ -16,7 +23,12 @@
         public string EmployeeName { get; set; }
         public string EmployeeStatus { get; set; }
         public string Designation { get; set; }
-        public string Department { get; set; } 
+        public string Department { get; set; }
+
+        public string BudgetCode { get; set; }
+        public string SubSection { get; set; }
+        public string Line { get; set; } 
+
         public double Total { get; set; }
         //  public Company ACompany { get; set; }
     }

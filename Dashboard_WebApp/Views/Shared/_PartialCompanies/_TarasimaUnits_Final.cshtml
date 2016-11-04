@@ -15,12 +15,13 @@
             <span class="col-md-offset-1 col-md-2 td" style="margin: 5px">{{_unit.UnitTotal}} </span>
             <span class="col-md-offset-1 col-md-2 td" style="margin: 5px">{{_unit.name}} </span>
             <span class="col-md-offset-1 col-md-2 td" style="margin: 5px">{{_unit.name}} </span>
-            <span class="col-md-1 td-btn">
+            <span  class="col-md-1 td-btn">
                 <input type="hidden" ng-model="companycode" />
-                <a class="btn btn-info btn-xs" href="" title="" ng-click="OpenngDiologValidation_Dept(companycode)">{{val}} Show Unit Details </a>
+                <a class="btn btn-info btn-xs" ng-click="OpenngDiologValidation_Dept(companycode)">{{val}} Show Unit Details </a>
             </span>
         </label>
     </span>
+    
 </p>
 
 <script type="text/ng-template" id="Validation_Table">
@@ -49,11 +50,7 @@
                         <thead>
                             <tr>
                                 <th><button style="width: 20px;" ng-click="expanded = !expanded" expand><span ng-bind="expanded ? '-' : '+'"></span></button></th>
-                                <th class=""> Sections </th>
-                                <th class=""> SectionTotal </th>
-                                <th class=""> SectionId </th>
-                                <th class=""> SubSections </th>
-                                @*<th ng-repeat="(sh, sv) in sections[0]">{{sh}}</th>*@
+                                <th ng-repeat="(sh, sv) in sections[0]">{{sh}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,20 +61,31 @@
                                     <table ng-if="isArr" class="table table-condensed table-bordered table-striped" style="margin-bottom:0px">
                                         <thead>
                                             <tr>
-                                                <td>
-                                                    <button style="width: 20px;" ng-click="expandedss = !expandedss" expand><span ng-bind="expandedss ? '-' : '+'"></span></button>
-                                                </td>
+                                                <td> <button style="width: 20px;" ng-click="expandedss = !expandedss" expand><span ng-bind="expandedss ? '-' : '+'"></span></button> </td>
                                                 <th ng-repeat="(sj, ssv) in subsections[0]">{{sj}} </th>
-                                                <td> Lines </td>
+                                             
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="subs in subsections" ng-show="expandedss">
                                                 <td> {{$index+1}}</td>
-                                                <td ng-repeat="(sk, sv) in subs">{{sv}}</td>
-                                                <td>
-                                                    <button style="width: 20px;" ng-click="expandedl = !expandedl" expand><span ng-bind="expandedl ? '-' : '+'"></span></button>
+                                                <td ng-if="isArr" ng-repeat="subsv in subs" ng-init="isArr = isArray(subsv)">
+                                                   
+                                                    <table ng-if="isArr" class="table table-condensed table-bordered table-striped" style="margin-bottom:0px">
+                                                        <tbody>
+                                                            <tr ng-repeat="lines in subsv" ng-show="expandedss">     
+                                                                                                                          
+                                                                <td ng-repeat="line in lines" ng-init="isArr = isArray(line)" class="blueviolet" ng-show="0" ng-if="isArr" > {{line}}_ </td>
+                                                                <td> <input type="hidden" ng-model="lines" value="{{lines}}"/>
+                                                                <button name="" class="btn btn-info btn-xs" style="width: 100px;" ng-click="ShowLineDetails(lines)"> Details </button> </td>
+                                                                
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <span ng-if="!isArr">{{subsv}}</span>
+                                                 
                                                 </td>
+
                                             </tr>
                                         </tbody>
                                     </table>

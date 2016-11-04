@@ -101,6 +101,31 @@
                 </tr>
             </table>
         </script>
+        <script type="text/ng-template" id="AllocatedEmpList">
+
+            <table id="example" class="table table-condensed table-bordered table-striped">
+                <tr>
+                    <th><input type="button" sections="exportAction" ng-click="exportAction()" /> </th>
+                    <th><label> {{companyname}} </label></th>
+                </tr>
+                <tr>
+                    <th> Sr. </th>
+                    <th> EmployeeCode </th>
+                    <th> EmployeeName </th>
+                    <th> Designation </th>
+                    <th> Department </th>
+                    <th> Remarks </th>
+                </tr>
+                <tr ng-repeat="e in employees | orderBy : 'Name'">
+                    <td>{{ $index+1 }}</td>
+                    <td>{{e.EmployeeCode }}</td>
+                    <td>{{e.EmployeeName }}</td>
+                    <td>{{e.Designation }}</td>
+                    <td>{{e.Department }}</td>
+                    <td>{{e.EmployeeStatus}} <span ng-show="e.Total > 1"> Total: {{e.Total}}</span></td>
+                </tr>
+            </table>
+        </script>
     </div>
 </div>
 <br />
@@ -109,7 +134,7 @@
 @*<script src="~/Content/Configuration/js/jquery.min.js"></script>*@
 <script src="~/Content/Configuration/js/index.js"></script>
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     function change(cb) {
         if (cb.checked) {
             $("#" + cb.id + "_Low").prop("checked", true);
@@ -149,5 +174,5 @@
     }
 
 
-</script>
+</script>*@
 
