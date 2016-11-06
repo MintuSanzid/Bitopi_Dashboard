@@ -68,7 +68,7 @@ namespace Dashboard_HR.Repository.Repository
             }
         }
         
-        public DataTable GetHrDepartmentsFromDb(string companyCode)
+        public DataTable GetHrDepartmentsFromDb(string companyCode, string unitCode)
         {
             using (var conn = new SqlConnection(Con))
             {
@@ -80,6 +80,7 @@ namespace Dashboard_HR.Repository.Repository
                 {
                     cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_Department]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyCode));
+                    cmd.Parameters.Add(new SqlParameter("@UnitCode", unitCode));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;
                     da.Fill(ADataTable);
@@ -96,7 +97,7 @@ namespace Dashboard_HR.Repository.Repository
                 }
             }
         }
-        public DataTable GetHrSectionsFromDb(string companyCode) 
+        public DataTable GetHrSectionsFromDb(string companyCode, string unitCode) 
         {
             using (var conn = new SqlConnection(Con))
             {
@@ -108,6 +109,7 @@ namespace Dashboard_HR.Repository.Repository
                 {
                     cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_Sections_By_Department]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyCode));
+                    cmd.Parameters.Add(new SqlParameter("@UnitCode", unitCode));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;
                     da.Fill(ADataTable);
@@ -124,7 +126,7 @@ namespace Dashboard_HR.Repository.Repository
                 }
             }
         }
-        public DataTable GetHrSubSectionsFromDb(string companyCode)
+        public DataTable GetHrSubSectionsFromDb(string companyCode, string unitCode)
         {
             using (var conn = new SqlConnection(Con))
             {
@@ -136,6 +138,7 @@ namespace Dashboard_HR.Repository.Repository
                 {
                     cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_SubSections_By_Section]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyCode));
+                    cmd.Parameters.Add(new SqlParameter("@UnitCode", unitCode));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;
                     da.Fill(ADataTable);
@@ -181,7 +184,7 @@ namespace Dashboard_HR.Repository.Repository
             }
         }
 
-        public DataTable GetHrAllocatedEmpListFromDb(string company, string dept, string section, string subSection)
+        public DataTable GetHrAllocatedEmpListFromDb(string companyId, string unitId ,int departmentid, int sectionId, int subSectionId)
         {
             using (var conn = new SqlConnection(Con))
             {
@@ -192,7 +195,11 @@ namespace Dashboard_HR.Repository.Repository
                 try
                 {
                     cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_AllocatedEmployeeDetails]", conn);
-                    cmd.Parameters.Add(new SqlParameter("@CompanyCode", company));
+                    cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyId));
+                    cmd.Parameters.Add(new SqlParameter("@UnitId", unitId));
+                    cmd.Parameters.Add(new SqlParameter("@Departmentid", departmentid));
+                    cmd.Parameters.Add(new SqlParameter("@SectionId", sectionId));
+                    cmd.Parameters.Add(new SqlParameter("@SubSectionId", subSectionId));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;
                     da.Fill(ADataTable);

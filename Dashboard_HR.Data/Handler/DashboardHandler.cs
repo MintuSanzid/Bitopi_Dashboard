@@ -33,22 +33,22 @@ namespace Dashboard_HR.Data.Handler
             var data = _aDashboardHr.GetHrUnitsFromDb();
             return ListGenerateUnit(data);
         }
-        public List<Department> GetHrDepartments(string companyCode)
+        public List<Department> GetHrDepartments(string companyCode, string unitCode)
         {
             _aDashboardHr = new DashboardHr();
-            var data = _aDashboardHr.GetHrDepartmentsFromDb(companyCode);
+            var data = _aDashboardHr.GetHrDepartmentsFromDb(companyCode, unitCode);
             return ListGenerate(data);
         }
-        public List<Section> GetHrSections(string companyCode)
+        public List<Section> GetHrSections(string companyCode, string unitCode)
         {
             _aDashboardHr = new DashboardHr();
-            var data = _aDashboardHr.GetHrSectionsFromDb(companyCode);
+            var data = _aDashboardHr.GetHrSectionsFromDb(companyCode, unitCode);
             return ListGenerateSection(data);
         }
-        public List<SubSection> GetHrSubSections(string companyCode)
+        public List<SubSection> GetHrSubSections(string companyCode, string unitCode)
         {
             _aDashboardHr = new DashboardHr();
-            var data = _aDashboardHr.GetHrSubSectionsFromDb(companyCode);
+            var data = _aDashboardHr.GetHrSubSectionsFromDb(companyCode, unitCode);
             return ListGenerateSubSection(data);
         }
         
@@ -58,10 +58,10 @@ namespace Dashboard_HR.Data.Handler
             var data = _aDashboardHr.GetHrUnallocatedEmpListFromDb(companyCode);
             return UnallocatedEmpListGenerate(data);
         }
-        public List<Employee> GetHrAllocatedEmpList(CompanyCode companyObj) 
+        public List<Employee> GetHrAllocatedEmpList(CompanyObj obj)   
         {
             _aDashboardHr = new DashboardHr(); 
-            var data = _aDashboardHr.GetHrAllocatedEmpListFromDb(companyObj.Company,companyObj.Dept, companyObj.Section, companyObj.SubSection); 
+            var data = _aDashboardHr.GetHrAllocatedEmpListFromDb(obj.CompanyId, obj.UnitId, obj.DepartmentId, obj.SectionId, obj.SubSectionId); 
             return AllocatedEmpListGenerate(data);
         }
         private List<Employee> UnallocatedEmpListGenerate(DataTable employee)

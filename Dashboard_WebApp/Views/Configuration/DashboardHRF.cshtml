@@ -105,15 +105,15 @@
 
             <table id="example" class="table table-condensed table-bordered table-striped">
                 <tr>
-                    <th><input type="button" sections="exportAction" ng-click="exportAction()" /> </th>
-                    <th><label> {{companyname}} </label></th>
+                    @*<th><input type="button" sections="exportAction" ng-click="exportAction()" /> </th>*@
+                    <th><label> {{companyname}} </label></th>                   
                 </tr>
                 <tr>
                     <th> Sr. </th>
-                    <th> EmployeeCode </th>
+                    <th> EmployeeID </th>
                     <th> EmployeeName </th>
                     <th> Designation </th>
-                    <th> Department </th>
+                    <th> Line </th>
                     <th> Remarks </th>
                 </tr>
                 <tr ng-repeat="e in employees | orderBy : 'Name'">
@@ -121,10 +121,12 @@
                     <td>{{e.EmployeeCode }}</td>
                     <td>{{e.EmployeeName }}</td>
                     <td>{{e.Designation }}</td>
-                    <td>{{e.Department }}</td>
-                    <td>{{e.EmployeeStatus}} <span ng-show="e.Total > 1"> Total: {{e.Total}}</span></td>
-                </tr>
+                    <td>{{e.Line }}</td>
+                    <td>{{e.EmployeeStatus}} </td>
+                </tr>   
+                  
             </table>
+          
         </script>
     </div>
 </div>

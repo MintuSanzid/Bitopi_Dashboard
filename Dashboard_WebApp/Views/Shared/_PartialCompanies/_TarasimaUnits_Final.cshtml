@@ -17,7 +17,7 @@
             <span class="col-md-offset-1 col-md-2 td" style="margin: 5px">{{_unit.name}} </span>
             <span  class="col-md-1 td-btn">
                 <input type="hidden" ng-model="companycode" />
-                <a class="btn btn-info btn-xs" ng-click="OpenngDiologValidation_Dept(companycode)">{{val}} Show Unit Details </a>
+                <a id="{{_unit.UnitId}}" ng-click="OpenngDiologValidation_Dept(companycode, $event)" class="btn btn-info btn-xs" > Show Unit Details </a>
             </span>
         </label>
     </span>
@@ -62,8 +62,7 @@
                                         <thead>
                                             <tr>
                                                 <td> <button style="width: 20px;" ng-click="expandedss = !expandedss" expand><span ng-bind="expandedss ? '-' : '+'"></span></button> </td>
-                                                <th ng-repeat="(sj, ssv) in subsections[0]">{{sj}} </th>
-                                             
+                                                <th ng-repeat="(sj, ssv) in subsections[0]">{{sj}} </th>                                             
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -82,10 +81,8 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <span ng-if="!isArr">{{subsv}}</span>
-                                                 
+                                                    <span ng-if="!isArr">{{subsv}}</span>                                                 
                                                 </td>
-
                                             </tr>
                                         </tbody>
                                     </table>

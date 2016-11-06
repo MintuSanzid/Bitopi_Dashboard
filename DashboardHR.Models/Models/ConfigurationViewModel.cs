@@ -8,12 +8,14 @@
         public Employee AnEmployee { get; set; }
 
     }
-    public class CompanyCode
+    public class CompanyObj 
     {
-        public string Company { get; set; }
-        public string Dept { get; set; }
-        public string Section { get; set; } 
-        public string SubSection { get; set; } 
+        public string CompanyId { get; set; }
+        public string UnitId { get; set; }
+        public int DivisionId { get; set; }
+        public int DepartmentId { get; set; }
+        public int SectionId { get; set; } 
+        public int SubSectionId { get; set; }  
     }
 
     public class Employee

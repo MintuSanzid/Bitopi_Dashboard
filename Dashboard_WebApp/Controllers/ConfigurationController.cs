@@ -16,7 +16,7 @@ namespace Dashboard_WebApp.Controllers
         {
             _aDashboardHandler = new DashboardHandler();
         }
-        
+
         // GET: Configuration/DashboardHRF
         public ActionResult DashboardHRF()
         {
@@ -38,30 +38,30 @@ namespace Dashboard_WebApp.Controllers
         }
 
         // GET: Configuration/DashboardHRFJson
-        public JsonResult DashboardHRFJson(string companyCode)
+        public JsonResult DashboardHrfDepartmentJson(CompanyObj obj) 
         {
-            List<Department> data = _aDashboardHandler.GetHrDepartments(companyCode);
+            List<Department> data = _aDashboardHandler.GetHrDepartments(obj.CompanyId, obj.UnitId);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult DashboardHRFSectionJson(string companyCode) 
+        public JsonResult DashboardHrfSectionJson(CompanyObj obj) 
         {
-            List<Section> data = _aDashboardHandler.GetHrSections(companyCode);
-            return Json(data, JsonRequestBehavior.AllowGet); 
-        }
-        public JsonResult DashboardHRFSubSectionJson(string companyCode)
-        {
-            List<SubSection> data = _aDashboardHandler.GetHrSubSections(companyCode);
+            List<Section> data = _aDashboardHandler.GetHrSections(obj.CompanyId, obj.UnitId);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult DashboardUnallocatedEmpList(string companyCode) 
+        public JsonResult DashboardHrfSubSectionJson(CompanyObj obj)
+        {
+            List<SubSection> data = _aDashboardHandler.GetHrSubSections(obj.CompanyId, obj.UnitId);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult DashboardUnallocatedEmpList(string companyCode)
         {
             var data = _aDashboardHandler.GetHrUnallocatedEmpList(companyCode);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult DashboardAllocatedEmpList(CompanyCode companyCode)
+        public JsonResult DashboardAllocatedEmpList(CompanyObj companyObj)
         {
-            var data = _aDashboardHandler.GetHrAllocatedEmpList(companyCode);
+            var data = _aDashboardHandler.GetHrAllocatedEmpList(companyObj);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

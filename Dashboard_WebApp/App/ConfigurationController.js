@@ -31,16 +31,19 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         return total;
     }
 
-    $scope.OpenngDiologValidation_Dept = function (companyCode) {
+    $scope.OpenngDiologValidation_Dept = function (companyCode, event) {
+        var comobj = {};
+        comobj.CompanyId = companyCode;
+        comobj.UnitId = event.target.id;
+        var config = { params: comobj, headers: { 'Accept': "application/json" } };
 
-        $http.get("/Configuration/DashboardHRFJson?companyCode=" + companyCode).then(function (dept) {
+        $http.get("/Configuration/DashboardHrfDepartmentJson", config).then(function (dept) {
             if (dept.status === 200) {
-                $http.get("/Configuration/DashboardHRFSectionJson?companyCode=" + companyCode).then(function (section) {
+                $http.get("/Configuration/DashboardHRFSectionJson", config).then(function (section) {
                     if (section.status === 200) {
-                        $http.get("/Configuration/DashboardHRFSubSectionJson?companyCode=" + companyCode).then(function (subsection) {
+                        $http.get("/Configuration/DashboardHrfSubSectionJson", config).then(function (subsection) {
                             if (subsection.data.length > 0 && subsection.status === 200) {
-                                var comobj = {};
-                                comobj.companyCode = companyCode;
+
                                 var insertedSectiondata = $scope.InsertSection(dept.data, section.data, subsection.data, comobj);
                                 $scope.departments = insertedSectiondata;
                                 $scope.cols = Object.keys($scope.departments[0]);
@@ -99,14 +102,10 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
                     if (sSection[i].DeptId === comobj.deptId && sSection[i].SectionId === comobj.sectionId && sSection[i].SSectionId === comobj.ssectionId) {
 
                         delete sSection[i].SSectionId;
-                        sSection[i].Action = [
-                            {
-                                Company: comobj.companyCode,
-                                Dept: comobj.deptId,
-                                Section: comobj.sectionId,
-                                SubSection: comobj.ssectionId
-                            }
-                        ];
+                        sSection[i].Action = [{
+                            CompanyId: comobj.CompanyId, DivisionId: comobj.division, UnitId: comobj.UnitId, DepartmentId: comobj.deptId,
+                            SectionId: comobj.sectionId, SubSectionId: comobj.ssectionId
+                        }];
                         subSections.push(sSection[i]);
                         //$scope.insertedLine(insertedSectiondata, ssection, deptId, companyCode);
                     }
@@ -124,6 +123,7 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
     };
 
     $scope._openUnallocated = function (companyCode) {
+        $scope.employees = [];
         $http.get("/Configuration/DashboardUnallocatedEmpList?companyCode=" + companyCode).then(function (response) {
             if (response.data.length > 0 && response.status === 200) {
                 $scope.employees = response.data;
@@ -132,8 +132,12 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         ngDialog.open({ template: "UnallocatedEmpList_Table", controller: "ConfigurationController", className: "ngdialog-theme-default", scope: $scope });
 
     };
+
     $scope.ShowLineDetails = function (codes) {
-        $http.get("/Configuration/DashboardAllocatedEmpList?companyCode=" + codes).then(function (response) {
+        $scope.employees = [];
+        var sa = $scope.companycode;
+        var config = { params: codes, headers: { 'Accept': "application/json" } };
+        $http.get("/Configuration/DashboardAllocatedEmpList", config).then(function (response) {
             if (response.data.length > 0 && response.status === 200) {
                 $scope.employees = response.data;
             }
@@ -144,7 +148,7 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
     $scope.sections = [{ id: 1, name: "Mintu" }, { id: 2, name: "Aziz" }];
 
     $scope.name = 'World';
-    
+
     $scope.isArray = angular.isArray;
 
     $scope.data = [
