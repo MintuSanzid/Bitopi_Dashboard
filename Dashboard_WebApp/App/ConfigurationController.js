@@ -67,7 +67,11 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
                     comobj.sectionId = section[j].SectionId;
                     if (section[j].DeptId === comobj.deptId && section[j].SectionId === comobj.sectionId) {
 
-                        delete section[j].DeptId;
+                        if (section[j].DeptId === 15 && section[j].SectionId === 35) {
+                            debugger;
+                        }
+
+                        //delete section[j].DeptId;
                         //delete section[j].SectionId;
                         insertedSectiondata.push(section[j]);
                         $scope.insertedSubSection(insertedSectiondata, ssection, comobj);
@@ -75,11 +79,13 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
                 }
                 for (var k = 0; k < insertedSectiondata.length; k++) {
                     delete insertedSectiondata[k].SectionId;
+                    delete insertedSectiondata[k].DeptId;
                     if (insertedSectiondata[k].SubSections.length > 0) {
                         var sSection = insertedSectiondata[k].SubSections;
                         for (var l = 0; l < sSection.length; l++) {
                             delete sSection[l].DeptId;
                             delete sSection[l].SectionId;
+                            delete sSection[l].SSectionId;
                         }
                     }
                 }
@@ -101,7 +107,7 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
                     comobj.ssectionId = sSection[i].SSectionId;
                     if (sSection[i].DeptId === comobj.deptId && sSection[i].SectionId === comobj.sectionId && sSection[i].SSectionId === comobj.ssectionId) {
 
-                        delete sSection[i].SSectionId;
+                        //delete sSection[i].SSectionId;
                         sSection[i].Action = [{
                             CompanyId: comobj.CompanyId, DivisionId: comobj.division, UnitId: comobj.UnitId, DepartmentId: comobj.deptId,
                             SectionId: comobj.sectionId, SubSectionId: comobj.ssectionId
