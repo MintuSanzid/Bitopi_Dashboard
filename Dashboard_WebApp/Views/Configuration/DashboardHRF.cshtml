@@ -30,12 +30,12 @@
         <h2 class="">
             &nbsp; &nbsp;
             <i class="glyphicon glyphicon-dashboard"></i> Dashboard
-            <span class="col-md-5 pull-right">
-                &nbsp;
-                <span class="goldenrod "> <i class="glyphicon glyphicon-briefcase"></i> Budget </span>
-                <span class="col-md-offset-1 rosybrown "> <i class="glyphicon glyphicon-ok"></i> Actual </span>
-                <span class="col-md-offset-1 yellowgreen "> <i class="glyphicon glyphicon-minus"></i> Shortage </span>
-                <span class="col-md-offset-1 blueviolet "> <i class="glyphicon glyphicon-plus"></i> Unallocated </span> @*Exceed*@
+            <span class="col-md-4 pull-right" style="padding-left:3px">
+                <span class="goldenrod "> Budget </span>
+                <span class="col-md-offset-1 rosybrown "> Actual </span>
+                <span class="col-md-offset-1 yellowgreen "> Shortage </span>
+                <span class="col-md-offset-1 blueviolet "> Exceed </span>
+                <span class="col-md-offset-1 red"> Unallocated </span>
             </span>
         </h2>
         @using (Html.BeginForm())
@@ -46,7 +46,21 @@
                 <h1 class="">
                     <i class="glyphicon glyphicon-cog"></i> Operation Mode : <span> Manpower </span>
                     <span class="col-md-4 pull-right">
-                        <span class="col-md-offset-1 goldenrod"><i class="glyphicon glyphicon-user"></i> Manpower </span>
+                        <span class="col-md-offset-1 goldenrod">
+                            <i class="glyphicon glyphicon-user"></i> Manpower || Group Total: {{GroupTotal}}
+                        </span>
+                    </span>
+                </h1>
+
+                <h1 ng-repeat="_C in Companies" class="">
+                    <i class="glyphicon glyphicon-th-list"> </i> {{_C.CompanyName}}
+                    <span class="col-md-4 pull-right">
+                        <span class="col-md-offset-1 goldenrod"><i class="glyphicon glyphicon-briefcase"></i> {{_C.Budget}} </span>
+                        <span class="col-md-offset-1 rosybrown"><i class="glyphicon glyphicon-ok"></i> {{_C.Actual}} </span>
+                        <span class="col-md-offset-1 yellowgreen"><i class="glyphicon glyphicon-minus"></i> {{_C.Shartage}} </span>
+                        <span class="col-md-offset-1 blueviolet"><i class="glyphicon glyphicon-plus"></i> {{_C.Exceed}} </span>
+                        <input type="hidden" ng-model="companycode" value="{{_C.CompanyCode}}" />
+                        <span class="col-md-offset-1 red" ng-click="_openUnallocated(companycode)"><i class="glyphicon glyphicon-edit"></i> {{_C.Unallocated}} </span>
                     </span>
                 </h1>
                 <h1 class="">
@@ -55,13 +69,13 @@
                         <span class="col-md-offset-1 goldenrod"><i class="glyphicon glyphicon-briefcase"></i> {{companybudgeted}} </span>
                         <span class="col-md-offset-1 rosybrown"><i class="glyphicon glyphicon-ok"></i> {{companytotal}} </span>
                         <span class="col-md-offset-1 yellowgreen"><i class="glyphicon glyphicon-minus"></i> 00 </span>
-                        <span class="col-md-offset-1 blueviolet" ng-click="_openUnallocated(companycode)"><i class="glyphicon glyphicon-plus"></i> {{companyUnallocated}} </span>
+                        <span class="col-md-offset-1 blueviolet"><i class="glyphicon glyphicon-plus"></i> 00 </span>
                         <input type="hidden" ng-model="companycode" />
-                        @*<span class="col-md-offset-1 yellowgreen"><i class="glyphicon glyphicon-minus"></i> {{companyUnallocated}} </span>*@
+                        <span class="col-md-offset-1 red" ng-click="_openUnallocated(companycode)"><i class="glyphicon glyphicon-edit"></i> {{companyUnallocated}} </span>
                     </span>
                 </h1>
                 @Html.Partial("_PartialCompanies/_MisamiGrarments")
-                <h1 class="">   </h1>
+                <h1 class=""> </h1>
             </aside>
             <div class="row col-md-12">
                 <span class="col-md-offset-1 col-md-2"> &nbsp; <span id="msg" ng-model="btndisabled" class="btn-danger"></span> &nbsp;</span>
@@ -80,8 +94,8 @@
 
             <table id="example" class="table table-condensed table-bordered table-striped">
                 <tr>
-                    <th><input type="button" sections="exportAction" ng-click="exportAction()" /> </th>
-                    <th><label> {{companyname}} </label></th>
+                    @*<th><input type="button" sections="exportAction" ng-click="exportAction()" /> </th>*@
+                    <label> {{companyname}} || Total: {{employees.length}}</label>
                 </tr>
                 <tr>
                     <th> Sr. </th>
@@ -100,13 +114,14 @@
                     <td>{{e.EmployeeStatus}} <span ng-show="e.Total > 1"> Total: {{e.Total}}</span></td>
                 </tr>
             </table>
+
         </script>
         <script type="text/ng-template" id="AllocatedEmpList">
 
             <table id="example" class="table table-condensed table-bordered table-striped">
                 <tr>
                     @*<th><input type="button" sections="exportAction" ng-click="exportAction()" /> </th>*@
-                    <th><label> {{companyname}} </label></th>                   
+                    <th><label> {{companyname}} </label></th>
                 </tr>
                 <tr>
                     <th> Sr. </th>
@@ -123,58 +138,14 @@
                     <td>{{e.Designation }}</td>
                     <td>{{e.Line }}</td>
                     <td>{{e.EmployeeStatus}} </td>
-                </tr>   
-                  
+                </tr>
+
             </table>
-          
+
         </script>
     </div>
 </div>
 <br />
 
-@*<script type="text/javascript">$('select').timezones();</script>*@
-@*<script src="~/Content/Configuration/js/jquery.min.js"></script>*@
 <script src="~/Content/Configuration/js/index.js"></script>
-
-@*<script type="text/javascript">
-    function change(cb) {
-        if (cb.checked) {
-            $("#" + cb.id + "_Low").prop("checked", true);
-        } else {
-            $("input[name=" + cb.id + "]").attr("checked", false);
-        }
-    }
-    function changeRB(rb) {
-        if (rb.checked) {
-            $("#" + rb.name + "").prop("checked", true);
-        }
-    }
-    function _setG(li) {
-        var color = $(li).css("background-color");
-        var hexcoles = rgb2hex(color);
-        $("#StateGreenhidden").val(hexcoles);
-        $("#StateGreen").css("background-color", hexcoles);
-    }
-    function _setR(li) {
-        var color = $(li).css("background-color");
-        var hexcoles = rgb2hex(color);
-        $("#StateRedhidden").val(hexcoles);
-        $("#StateRed").css("background-color", hexcoles);
-    }
-    function _setY(li) {
-        var color = $(li).css("background-color");
-        var hexcoles = rgb2hex(color);
-        $("#StateYellowhidden").val(hexcoles);
-        $("#StateYellow").css("background-color", hexcoles);
-    }
-    function rgb2hex(rgb) {
-        rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-        function hex(x) {
-            return ("0" + parseInt(x).toString(16)).slice(-2);
-        }
-        return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
-    }
-
-
-</script>*@
 

@@ -1,20 +1,21 @@
 ﻿
 <p>
     <label class="table" style="border-style: solid; border-width: 1px;">
-        <span class="col-md-2"> <i class="glyphicon glyphicon-arrow-down"></i> Units </span>
-        <span class="col-md-2" style="width: 230px;"> <i class="glyphicon glyphicon-briefcase"></i> Budget </span>
-        <span class="col-md-2"> <i class="glyphicon glyphicon-ok"></i> Actual </span>
-        <span class="col-md-2"> <i class="glyphicon glyphicon-minus"></i> Shortage </span>
-        <span class="col-md-2" style="width: 230px;"> <i class="glyphicon glyphicon-minus"></i> Exceed </span>
-        <span class="col-md-1 td-btn"><a class="btn btn-info btn-xs" href=""> Action </a></span>
+        <span class="col-md-2"><span class="glyphicon glyphicon-arrow-down btn btn-info btn-xs" > Units </span> </span>
+       
+        <span class="col-md-2" style="width: 230px;"> <span style="padding-bottom: 10px;" class="goldenrod glyphicon glyphicon-briefcase"> Budget </span></span>
+        <span class="col-md-2"> <span style="padding-bottom: 10px;" class="rosybrown glyphicon glyphicon-ok"> Actual </span></span>
+        <span class="col-md-2"> <span style="padding-bottom: 10px;" class="yellowgreen glyphicon glyphicon-minus"> Shortage </span></span>
+        <span class="col-md-2" style="width: 230px;"> <span style="padding-bottom: 10px;" class="blueviolet glyphicon glyphicon-minus"> Exceed </span></span>
+        <span class="col-md-1"><a class="btn btn-info btn-xs" href=""> Action </a></span>
     </label>
     <span data-ng-repeat="_unit in _units">
         <label ng-if="1" class="table" style="border-style: solid; border-width: 1px;">
             <span class="col-md-2 td-left" style="margin: 5px">{{_unit.UnitName}} </span>
             <span class="col-md-offset-1 col-md-2 td" style="margin: 5px">{{_unit.UnitBudget}}| 0 </span>
             <span class="col-md-offset-1 col-md-2 td" style="margin: 5px">{{_unit.UnitTotal}} </span>
-            <span class="col-md-offset-1 col-md-2 td" style="margin: 5px">{{_unit.name}} </span>
-            <span class="col-md-offset-1 col-md-2 td" style="margin: 5px">{{_unit.name}} </span>
+            <span class="col-md-offset-1 col-md-2 td" style="margin: 5px"> 00 </span>
+            <span class="col-md-offset-1 col-md-2 td" style="margin: 5px"> 00 </span>
             <span  class="col-md-1 td-btn">
                 <input type="hidden" ng-model="companycode" />
                 <a id="{{_unit.UnitId}}" ng-click="OpenngDiologValidation_Dept(companycode, $event)" class="btn btn-info btn-xs" > Show Unit Details </a>

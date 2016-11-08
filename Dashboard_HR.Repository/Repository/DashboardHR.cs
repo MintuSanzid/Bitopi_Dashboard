@@ -11,6 +11,34 @@ namespace Dashboard_HR.Repository.Repository
         public DataTable ADataTable;
         private const string Con = "server=192.168.10.5;database=HR; Trusted_Connection=False; Connection Timeout=3600; Pooling=false; uid=sa;pwd=sqlbis@^7*";
 
+        public DataTable GetHrCompanyFromDb()
+        {
+            using (var conn = new SqlConnection(Con))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                SqlDataAdapter da = new SqlDataAdapter();
+                ADataTable = new DataTable();
+                try
+                {
+                    cmd = new SqlCommand("[Dashboard_Get_HR_Companies]", conn);
+                    cmd.Parameters.Add(new SqlParameter("@UserId", "BGL"));
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand = cmd;
+                    da.Fill(ADataTable);
+                    return ADataTable;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    conn.Close();
+                }
+            }
+        }
         public DataTable GetHrDivisionFromDb()
         {
             using (var conn = new SqlConnection(Con))
@@ -21,7 +49,7 @@ namespace Dashboard_HR.Repository.Repository
                 ADataTable = new DataTable();
                 try
                 {
-                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_Division]", conn);
+                    cmd = new SqlCommand("[Dashboard_Get_HR_Divisions]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", "BGL"));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;
@@ -49,7 +77,7 @@ namespace Dashboard_HR.Repository.Repository
                 ADataTable = new DataTable();
                 try
                 {
-                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_UNIT_TEST]", conn);
+                    cmd = new SqlCommand("[Dashboard_Get_HR_Units]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", "BGL"));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;
@@ -78,7 +106,7 @@ namespace Dashboard_HR.Repository.Repository
                 ADataTable = new DataTable();
                 try
                 {
-                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_Department]", conn);
+                    cmd = new SqlCommand("[Dashboard_Get_HR_Department]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyCode));
                     cmd.Parameters.Add(new SqlParameter("@UnitCode", unitCode));
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -107,7 +135,7 @@ namespace Dashboard_HR.Repository.Repository
                 ADataTable = new DataTable();
                 try
                 {
-                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_Sections_By_Department]", conn);
+                    cmd = new SqlCommand("[Dashboard_Get_HR_Sections_By_Department]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyCode));
                     cmd.Parameters.Add(new SqlParameter("@UnitCode", unitCode));
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -136,7 +164,7 @@ namespace Dashboard_HR.Repository.Repository
                 ADataTable = new DataTable();
                 try
                 {
-                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_SubSections_By_Section]", conn);
+                    cmd = new SqlCommand("[Dashboard_Get_HR_SubSections_By_Section]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyCode));
                     cmd.Parameters.Add(new SqlParameter("@UnitCode", unitCode));
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -165,7 +193,7 @@ namespace Dashboard_HR.Repository.Repository
                 ADataTable = new DataTable();
                 try
                 {
-                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_AllEmployeeDetails]", conn);
+                    cmd = new SqlCommand("[Dashboard_Get_HR_AllEmployeeDetails]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyCode));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;
@@ -194,7 +222,7 @@ namespace Dashboard_HR.Repository.Repository
                 ADataTable = new DataTable();
                 try
                 {
-                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_AllocatedEmployeeDetails]", conn);
+                    cmd = new SqlCommand("[Dashboard_Get_HR_AllocatedEmployeeDetails]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyId));
                     cmd.Parameters.Add(new SqlParameter("@UnitId", unitId));
                     cmd.Parameters.Add(new SqlParameter("@Departmentid", departmentid));
@@ -216,5 +244,7 @@ namespace Dashboard_HR.Repository.Repository
                 }
             }
         }
+
+       
     }
 }

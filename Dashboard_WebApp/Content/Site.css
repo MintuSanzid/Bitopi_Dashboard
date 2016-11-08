@@ -63,6 +63,7 @@ select {
     height: 15px;
     margin-top: 5px;
 }
+
 .btn-info-off {
     color: #ffffff;
     background-color: #C1C1C1;
@@ -71,6 +72,7 @@ select {
     height: 15px;
     margin-top: 5px;
 }
+
 #textarea {
     max-width: 100%;
 }
@@ -135,24 +137,26 @@ ng-color-picker li {
     opacity: 0.95;
 }
 
-    .insert-on {
-        display: block;
-        color: #eee;
-        text-shadow: 0 0 1px #666;
-        text-decoration: none;
-        box-shadow: 1px 1px 2px #000;
-        opacity: 0.95;
-        margin-left: 35px;
-        background-color: #698610;
-    }
-    .dummy-off {
-        display: none;
-    }
-    .dummy-on {
-        display: block;
-    }
-    
-    .btn-info-bitopi {
+.insert-on {
+    display: block;
+    color: #eee;
+    text-shadow: 0 0 1px #666;
+    text-decoration: none;
+    box-shadow: 1px 1px 2px #000;
+    opacity: 0.95;
+    margin-left: 35px;
+    background-color: #698610;
+}
+
+.dummy-off {
+    display: none;
+}
+
+.dummy-on {
+    display: block;
+}
+
+.btn-info-bitopi {
     color: #fff;
     background-color: #5bc0de;
     border-color: #46b8da;

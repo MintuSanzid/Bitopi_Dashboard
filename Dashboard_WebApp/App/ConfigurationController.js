@@ -2,8 +2,25 @@
 var app = angular.module("app", ["ngDialog"]);
 
 app.controller("ConfigurationController", function ($scope, $rootScope, $http, $filter, $window, ngDialog) {
-    $scope.companyname = "Baridhi Grarments Limited (BGL)";
+   
+    $scope.companyname = "Baridhi Grarments Ltd (BGL)";
     function openngDiologValidationUnit() {
+        $http.get("/Configuration/DashboardCompanyJsonData").then(function (response) {
+            var getGroupTotal = function (allCompany) {
+                var gtotal = 0;
+                for (var i = 0; i < allCompany.length; i++) {
+                    var total = allCompany[i].Budget;
+                    gtotal = parseInt(gtotal) + parseInt(total);
+                }
+                return gtotal;
+            };
+            if (response.data.length > 0 && response.status === 200) {
+                $scope.Companies = response.data;
+                $scope.GroupTotal = getGroupTotal(response.data);
+                //$scope.companycode = response.data[0].CompanyCode;
+                //$scope.companyname = response.data[0].CompanyName + " (" + response.data[0].CompanyCode + ")";
+            }
+        });
         $http.get("/Configuration/DashboardDivisionJsonData").then(function (response) {
             if (response.data.length > 0 && response.status === 200) {
                 $scope._divisions = response.data;
@@ -30,7 +47,6 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         }
         return total;
     }
-
     $scope.OpenngDiologValidation_Dept = function (companyCode, event) {
         var comobj = {};
         comobj.CompanyId = companyCode;
@@ -56,7 +72,6 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         });
         ngDialog.open({ template: "Validation_Table", controller: "ConfigurationController", className: "ngdialog-theme-default", scope: $scope });
     };
-
     $scope.InsertSection = function (dept, section, ssection, comobj) {
         if (dept.length > 0) {
             for (var i = 0; i < dept.length; i++) {
@@ -95,7 +110,6 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         };
         return dept;
     };
-
     $scope.insertedSubSection = function (sectiondata, sSection, comobj) {
         if (sectiondata.length > 0 && sSection.length > 0) {
 
@@ -122,12 +136,9 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         }
         return sectiondata;
     };
-
-
     $scope.OpenngDiologValidation = function () {
         ngDialog.open({ template: "Validation_Id", controller: "ConfigurationController", className: "ngdialog-theme-default", scope: $scope });
     };
-
     $scope._openUnallocated = function (companyCode) {
         $scope.employees = [];
         $http.get("/Configuration/DashboardUnallocatedEmpList?companyCode=" + companyCode).then(function (response) {
@@ -138,7 +149,6 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         ngDialog.open({ template: "UnallocatedEmpList_Table", controller: "ConfigurationController", className: "ngdialog-theme-default", scope: $scope });
 
     };
-
     $scope.ShowLineDetails = function (codes) {
         $scope.employees = [];
         var sa = $scope.companycode;
@@ -151,39 +161,10 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         ngDialog.open({ template: "AllocatedEmpList", controller: "ConfigurationController", className: "ngdialog-theme-default", scope: $scope });
 
     }
-    $scope.sections = [{ id: 1, name: "Mintu" }, { id: 2, name: "Aziz" }];
-
-    $scope.name = 'World';
-
     $scope.isArray = angular.isArray;
-
-    $scope.data = [
-        {
-            "Id": 1,
-            "Title": "en-US",
-            "Description": "UnitedStates",
-            "MyValues": [{ "Id": 100, "Value": "Save" }]
-        },
-        {
-            "Id": 2,
-            "Title": "en-UK",
-            "Description": "UK",
-            "MyValues": [{ "Id": 102, "Value": "Delete" }]
-        }
-    ];
-
-
-    $scope.notSorted = function (obj) {
-        if (!obj) {
-            return [];
-        }
-        return Object.keys(obj);
-    }
-
-
     $scope.toggleChildRow = function (event) {
         $("#target").toggle(function () {
-            $("img#" + event.currentTarget.id).attr('src', "http://i.imgur.com/d4ICC.png");
+            $("img#" + event.currentTarget.id).attr("src", "http://i.imgur.com/d4ICC.png");
             alert("First handler for .toggle() called.");
         }, function () {
             alert("Second handler for .toggle() called.");
@@ -193,20 +174,14 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
 
         $scope.id = 0;
         if (event.currentTarget.id !== 0 && $scope.expand === 1) {
-            $("img#" + event.currentTarget.id).attr('src', "http://i.imgur.com/d4ICC.png");
+            $("img#" + event.currentTarget.id).attr("src", "http://i.imgur.com/d4ICC.png");
             $scope.expand = 0;
         } else {
-            $("img#" + event.currentTarget.id).attr('src', "http://i.imgur.com/SD7Dz.png");
+            $("img#" + event.currentTarget.id).attr("src", "http://i.imgur.com/SD7Dz.png");
             $scope.id = event.currentTarget.id;
             $scope.expand = 1;
         }
     }
-
-    //        $("img#" + event.currentTarget.id).src = "http://i.imgur.com/d4ICC.png";
-    //    }, function () {
-    //        $("img#" + event.currentTarget.id).src = "http://i.imgur.com/SD7Dz.png";
-    //    });}
-    //};
 
     ///////////////// All Value Set ////////////////////
 
@@ -217,7 +192,7 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
 
     //In controller
     $scope.exportAction = function () {
-        alert('hi');
+        alert("hi");
         switch ($scope.export_action) {
             case "pdf": $scope.$broadcast("export-pdf", {});
                 break;
@@ -482,8 +457,6 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         { Id: 1, _subsection: $scope._misamiLineObj, name: "Air Conditioning & Cooling" },
         { Id: 1, _subsection: $scope._misamiLineObj, name: "Wtp" }
     ];
-
-
     $scope.misamiSubSectionObj = [
         { id: 1, _subsections: $scope._misamiSubsectionObj, name: "General" },
         { id: 1, _subsections: $scope._misamiSubsectionObj, name: "Planning" },
@@ -835,7 +808,6 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
 
 
 
-
 var renderTable = function () {
 
     function fnFormatDetails(tableId, html) {
@@ -856,35 +828,35 @@ var renderTable = function () {
 
 
         //Insert a 'details' column to the table
-        var nCloneTh = document.createElement('th');
-        var nCloneTd = document.createElement('td');
+        var nCloneTh = document.createElement("th");
+        var nCloneTd = document.createElement("td");
         nCloneTd.innerHTML = '<img src="http://i.imgur.com/SD7Dz.png">';
         nCloneTd.className = "center";
 
-        $('#exampleTable thead tr').each(function () {
+        $("#exampleTable thead tr").each(function () {
             this.insertBefore(nCloneTh, this.childNodes[0]);
         });
 
-        $('#exampleTable tbody tr').each(function () {
+        $("#exampleTable tbody tr").each(function () {
             this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
         });
 
         //Initialse DataTables, with no sorting on the 'details' column
-        oTable = $('#exampleTable').dataTable({
+        oTable = $("#exampleTable").dataTable({
             "bJQueryUI": true,
             "sPaginationType": "full_numbers",
             "aoColumnDefs": [{ "bSortable": false, "aTargets": [0] }],
-            "aaSorting": [[1, 'asc']]
+            "aaSorting": [[1, "asc"]]
         });
 
         /* Add event listener for opening and closing details
         * Note that the indicator for showing which row is open is not controlled by DataTables,
         * rather it is done here
         */
-        $(document).on('click', '#exampleTable tbody td img', function () {
+        $(document).on("click", "#exampleTable tbody td img", function () {
             tableHtml = $("#example").html();
-            alert('hi');
-            var nTr = $("#example").parents('tr')[0];
+            alert("hi");
+            var nTr = $("#example").parents("tr")[0];
             //if (oTable.fnIsOpen(nTr)) {
             //    /* This row is already open - close it */
             //    this.src = "http://i.imgur.com/SD7Dz.png";
@@ -893,7 +865,7 @@ var renderTable = function () {
             //else {
             /* Open this row */
             this.src = "http://i.imgur.com/d4ICC.png";
-            oTable.fnOpen(nTr, fnFormatDetails(iTableCounter, tableHtml), 'details');
+            oTable.fnOpen(nTr, fnFormatDetails(iTableCounter, tableHtml), "details");
             oInnerTable = $("#example" + iTableCounter).dataTable({
                 "bJQueryUI": true,
                 "sPaginationType": "full_numbers"
@@ -905,3 +877,4 @@ var renderTable = function () {
 
     });
 };
+

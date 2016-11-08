@@ -215,6 +215,7 @@
     <Content Include="App\Directive.js" />
     <Content Include="App\ExtendedConfigController.js" />
     <Content Include="App\StudentClient.js" />
+    <Content Include="App\TodoController.js" />
     <Content Include="App\validationApp.js" />
     <Content Include="assets\css\countdown.css" />
     <Content Include="assets\css\main.css" />
@@ -2566,6 +2567,7 @@
     <Content Include="Views\Home\JQueryTable.cshtml" />
     <Content Include="Views\Shared\_PartialCompanies\_TarasimaUnits_Final2.cshtml" />
     <Content Include="Views\Shared\_LayoutConfigurationHRF.cshtml" />
+    <Content Include="Views\Home\Pasing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

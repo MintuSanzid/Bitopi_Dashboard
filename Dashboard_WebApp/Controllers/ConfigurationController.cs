@@ -18,18 +18,25 @@ namespace Dashboard_WebApp.Controllers
         }
 
         // GET: Configuration/DashboardHRF
-        public ActionResult DashboardHRF()
+        public ActionResult DashboardHrf() 
         {
             return View();
         }
-        // GET: Configuration/DashboardUnitJsonData
+
+        // GET: Configuration/DashboardCompanyJsonData
+        public JsonResult DashboardCompanyJsonData()
+        {
+            List<Company> data = _aDashboardHandler.GetHrCompanies(); 
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Configuration/DashboardDivisionJsonData
         public JsonResult DashboardDivisionJsonData()
         {
             List<Division> data = _aDashboardHandler.GetHrDivisions();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
-
+        
         // GET: Configuration/DashboardUnitJsonData
         public JsonResult DashboardUnitJsonData()
         {

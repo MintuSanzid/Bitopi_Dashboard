@@ -19,11 +19,51 @@ namespace Dashboard_HR.Data.Handler
         private List<Section> _sections;
         private List<SubSection> _ssections;
         private List<Employee> _employees;
+        private List<Company> _companies;
         private DashboardHr _aDashboardHr;
+
+        public DashboardHandler()
+        {
+            _aDashboardHr = new DashboardHr();
+        }
+
+        public List<Company> GetHrCompanies()
+        {
+            var data = _aDashboardHr.GetHrCompanyFromDb();
+            return ListGenerateCompany(data);
+        }
+
+        private List<Company> ListGenerateCompany(DataTable companies)
+        {
+            try
+            {
+                _companies = new List<Company>();
+                foreach (DataRow aRow in companies.Rows)
+                {
+                    var company = new Company
+                    {
+                        CompanyId = Convert.ToInt32(aRow["CompanyId"]),
+                        CompanyName = aRow["CompanyName"].ToString(),
+                        CompanyCode = aRow["CompanyCode"].ToString(),
+                        Budget = aRow["Budget"].ToString(),
+                        Actual = aRow["Actual"].ToString(),
+                        Shartage = aRow["Shartage"].ToString(),
+                        Exceed = aRow["Exceed"].ToString(),
+                        Unallocated = aRow["Unallocated"].ToString()
+                    };
+                    _companies.Add(company);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return _companies;
+            }
+            return _companies;
+        }
 
         public List<Division> GetHrDivisions()
         {
-            _aDashboardHr = new DashboardHr();
             var data = _aDashboardHr.GetHrDivisionFromDb();
             return ListGenerateDivision(data);
         }
@@ -51,17 +91,17 @@ namespace Dashboard_HR.Data.Handler
             var data = _aDashboardHr.GetHrSubSectionsFromDb(companyCode, unitCode);
             return ListGenerateSubSection(data);
         }
-        
+
         public List<Employee> GetHrUnallocatedEmpList(string companyCode)
         {
             _aDashboardHr = new DashboardHr();
             var data = _aDashboardHr.GetHrUnallocatedEmpListFromDb(companyCode);
             return UnallocatedEmpListGenerate(data);
         }
-        public List<Employee> GetHrAllocatedEmpList(CompanyObj obj)   
+        public List<Employee> GetHrAllocatedEmpList(CompanyObj obj)
         {
-            _aDashboardHr = new DashboardHr(); 
-            var data = _aDashboardHr.GetHrAllocatedEmpListFromDb(obj.CompanyId, obj.UnitId, obj.DepartmentId, obj.SectionId, obj.SubSectionId); 
+            _aDashboardHr = new DashboardHr();
+            var data = _aDashboardHr.GetHrAllocatedEmpListFromDb(obj.CompanyId, obj.UnitId, obj.DepartmentId, obj.SectionId, obj.SubSectionId);
             return AllocatedEmpListGenerate(data);
         }
         private List<Employee> UnallocatedEmpListGenerate(DataTable employee)
@@ -96,13 +136,13 @@ namespace Dashboard_HR.Data.Handler
                     Designation = aRow["Designation"].ToString(),
                     BudgetCode = aRow["BudgetCode"].ToString(),
                     SubSection = aRow["SubSection"].ToString(),
-                    Line=aRow["Line"].ToString(),
+                    Line = aRow["Line"].ToString(),
                     Total = Convert.ToDouble(aRow["Total"].ToString())
                 };
                 _employees.Add(aEmployee);
             }
             return _employees;
-        } 
+        }
 
         private List<Division> ListGenerateDivision(DataTable aDivision)
         {
@@ -132,7 +172,7 @@ namespace Dashboard_HR.Data.Handler
         }
         private List<ConpanyUnit> ListGenerateUnit(DataTable aCompanyUnit)
         {
-           // UnitCD, DT.UnitName, COUNT(*) UnitTotal, (SELECT COUNT(*) Unallocated
+            // UnitCD, DT.UnitName, COUNT(*) UnitTotal, (SELECT COUNT(*) Unallocated
             try
             {
                 _conpanyUnits = new List<ConpanyUnit>();
@@ -214,7 +254,7 @@ namespace Dashboard_HR.Data.Handler
                         SSectionTotal = (int)aRow["SSectionTotal"],
                         SSectionId = (int)aRow["SSecCD"],
                         SectionId = (int)aRow["SecCD"],
-                        DeptId = (int) aRow["DeptCD"]
+                        DeptId = (int)aRow["DeptCD"]
                     };
                     _ssections.Add(aSSection);
                 }
@@ -225,6 +265,5 @@ namespace Dashboard_HR.Data.Handler
             }
             return _ssections;
         }
-        
     }
 }

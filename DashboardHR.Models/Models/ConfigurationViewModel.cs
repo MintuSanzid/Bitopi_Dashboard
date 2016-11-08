@@ -5,7 +5,11 @@
         public int CompanyId { get; set; }
         public string CompanyCode { get; set; }
         public string CompanyName { get; set; }
-        public Employee AnEmployee { get; set; }
+        public string Budget { get; set; }
+        public string Actual { get; set; }
+        public string Shartage { get; set; }
+        public string Exceed { get; set; }
+        public string Unallocated { get; set; } 
 
     }
     public class CompanyObj 

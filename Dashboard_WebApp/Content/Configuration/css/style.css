@@ -7,6 +7,10 @@ body {
     font-size: 100%;
 }
 
+label {
+    padding: 5px 0px 0px 0px;
+}
+
 .accordion {
     /*width: 50%;*/
     margin: 20px auto;
@@ -69,7 +73,7 @@ body {
     }*/
 
     .accordion h2 {
-        padding: 5px;
+        padding: 8px;
         background-color: rgb(39, 61, 84);
         font-size: 1.3rem;
         color: #D6D8E0;
@@ -173,8 +177,7 @@ body {
 
 .row-table {
     margin: 10px;
-    border:solid;
-   
+    border: solid;
 }
 
 .row {
@@ -195,17 +198,19 @@ body {
 }
 
 .glyphicon.glyphicon-plus {
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .rosybrown {
     background-color: #000000;
-    padding: 3px;
+    padding: 5px;
     border-radius: 8px;
     font-size: 15px;
+    color: #d6d8e0;
+    margin: 0px 5px 0px 0px;
 }
 
-    .rosybrown :hover {
+    .rosybrown:hover {
         background-color: #800080;
         /*color: #ddd;
         padding: 3px;*/
@@ -216,9 +221,11 @@ body {
 
 .goldenrod {
     background-color: #008000;
-    padding: 3px;
+    padding: 5px;
     border-radius: 8px;
     font-size: 15px;
+    color: #d6d8e0;
+    margin: 0px 5px 0px 0px;
 }
 
     .goldenrod:hover {
@@ -232,10 +239,11 @@ body {
 
 .yellowgreen {
     background-color: #919191;
-    padding: 3px;
+    padding: 5px;
     border-radius: 8px;
     font-size: 15px;
     color: #fff;
+    margin: 0px 5px 0px 0px;
 }
 
     .yellowgreen:hover {
@@ -249,9 +257,11 @@ body {
 
 .blueviolet {
     background-color: #800000;
-    padding: 3px;
+    padding: 5px;
     border-radius: 8px;
     font-size: 15px;
+    color: #d6d8e0;
+    margin: 0px 5px 0px 0px;
 }
 
     .blueviolet:hover {
@@ -262,12 +272,30 @@ body {
         font-size: 15px;*/
     }
 
+.red {
+    background-color: #f50000;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #d6d8e0;
+    margin: 0px 5px 0px 0px;
+}
+
+.blueviolet:hover {
+    background-color: #800080;
+    /*color: #ddd;
+        padding: 3px;
+        border-radius: 8px;
+        font-size: 15px;*/
+}
+
 .small {
     padding: 3px 3px 8px 3px;
 }
 
 .bold {
     font-weight: bold;
+    font-size: 15px;
 }
 
 .border-tag {
