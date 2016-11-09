@@ -51,18 +51,41 @@
                         </span>
                     </span>
                 </h1>
+                <div class="tarasima">
+                    <span class="ng-scope bold"> Companies <i class="glyphicon glyphicon-arrow-down"></i></span>
+                </div>
+                <span ng-repeat="_C in Companies" class="tarasima">
+                    <h1 class=""> 
+                        <i class="glyphicon glyphicon-th-list"> </i> {{_C.CompanyName}}
+                        <span class="col-md-4 pull-right">
+                            <span class="col-md-offset-1 goldenrod"><i class="glyphicon glyphicon-briefcase"></i> {{_C.Budget}} </span>
+                            <span class="col-md-offset-1 rosybrown"><i class="glyphicon glyphicon-ok"></i> {{_C.Actual}} </span>
+                            <span class="col-md-offset-1 yellowgreen"><i class="glyphicon glyphicon-minus"></i> {{_C.Shartage | number:2}} </span>
+                            <span class="col-md-offset-1 blueviolet"><i class="glyphicon glyphicon-plus"></i> {{_C.Exceed | number:2}} </span>
+                            <input type="hidden" ng-model="companycode" value="{{_C.CompanyCode}}" />
+                            <span class="pull-right text-center col-md-2 red" ng-click="_openUnallocated(companycode)"><i class="glyphicon glyphicon-edit"></i> {{_C.Unallocated}} </span>
+                        </span>
+                    </h1>
+                 
+                    <div class="tarasima">
+                        <span class="ng-scope bold"> Division <i class="glyphicon glyphicon-forward"></i></span>
+                        <span ng-repeat="d in _C.Divisions" class="ng-scope">
+                            <h2 class="glyphicon ng-binding" style="width: 31.25%;">
+                                <span class="bold ng-binding" ng-model="division" ng-click="divisionset(alert('hi'))"> {{d.DivisionName}} &nbsp;</span>
+                                <span class="pull-right">
+                                    <span class="goldenrod"><i class="glyphicon glyphicon-briefcase"></i> {{d.Budget}}</span>
+                                    <span class="rosybrown"><i class="glyphicon glyphicon-ok"></i> {{d.Actual}} </span>
+                                    <span class="yellowgreen"><i class="glyphicon glyphicon-minus"></i> {{d.Shortage | number:2}} </span>
+                                    <span class="blueviolet"><i class="glyphicon glyphicon-plus"></i> {{d.Excess | number:2}}</span>
+                                </span>
+                            </h2>
+                           
+                        </span>
+                    </div>
+                </span>
+                @*@Html.Partial("_PartialCompanies/_MisamiGrarments")*@
 
-                <h1 ng-repeat="_C in Companies" class="">
-                    <i class="glyphicon glyphicon-th-list"> </i> {{_C.CompanyName}}
-                    <span class="col-md-4 pull-right">
-                        <span class="col-md-offset-1 goldenrod"><i class="glyphicon glyphicon-briefcase"></i> {{_C.Budget}} </span>
-                        <span class="col-md-offset-1 rosybrown"><i class="glyphicon glyphicon-ok"></i> {{_C.Actual}} </span>
-                        <span class="col-md-offset-1 yellowgreen"><i class="glyphicon glyphicon-minus"></i> {{_C.Shartage}} </span>
-                        <span class="col-md-offset-1 blueviolet"><i class="glyphicon glyphicon-plus"></i> {{_C.Exceed}} </span>
-                        <input type="hidden" ng-model="companycode" value="{{_C.CompanyCode}}" />
-                        <span class="col-md-offset-1 red" ng-click="_openUnallocated(companycode)"><i class="glyphicon glyphicon-edit"></i> {{_C.Unallocated}} </span>
-                    </span>
-                </h1>
+
                 <h1 class="">
                     <i class="glyphicon glyphicon-th-list"> </i> {{companyname}}
                     <span class="col-md-4 pull-right">
@@ -71,7 +94,7 @@
                         <span class="col-md-offset-1 yellowgreen"><i class="glyphicon glyphicon-minus"></i> 00 </span>
                         <span class="col-md-offset-1 blueviolet"><i class="glyphicon glyphicon-plus"></i> 00 </span>
                         <input type="hidden" ng-model="companycode" />
-                        <span class="col-md-offset-1 red" ng-click="_openUnallocated(companycode)"><i class="glyphicon glyphicon-edit"></i> {{companyUnallocated}} </span>
+                        <span class="pull-right text-center col-md-2 red" ng-click="_openUnallocated(companycode)"><i class="glyphicon glyphicon-edit"></i> {{companyUnallocated}} </span>
                     </span>
                 </h1>
                 @Html.Partial("_PartialCompanies/_MisamiGrarments")

@@ -49,8 +49,8 @@ namespace Dashboard_HR.Repository.Repository
                 ADataTable = new DataTable();
                 try
                 {
-                    cmd = new SqlCommand("[Dashboard_Get_HR_Divisions]", conn);
-                    cmd.Parameters.Add(new SqlParameter("@CompanyCode", "BGL"));
+                    cmd = new SqlCommand("[Dashboard_Get_HR_Divisions_Test]", conn);
+                    cmd.Parameters.Add(new SqlParameter("@UserId", "BGL"));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;
                     da.Fill(ADataTable);

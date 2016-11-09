@@ -2,25 +2,26 @@
 var app = angular.module("app", ["ngDialog"]);
 
 app.controller("ConfigurationController", function ($scope, $rootScope, $http, $filter, $window, ngDialog) {
-   
+
     $scope.companyname = "Baridhi Grarments Ltd (BGL)";
     function openngDiologValidationUnit() {
-        $http.get("/Configuration/DashboardCompanyJsonData").then(function (response) {
-            var getGroupTotal = function (allCompany) {
-                var gtotal = 0;
-                for (var i = 0; i < allCompany.length; i++) {
-                    var total = allCompany[i].Budget;
-                    gtotal = parseInt(gtotal) + parseInt(total);
-                }
-                return gtotal;
-            };
-            if (response.data.length > 0 && response.status === 200) {
-                $scope.Companies = response.data;
-                $scope.GroupTotal = getGroupTotal(response.data);
-                //$scope.companycode = response.data[0].CompanyCode;
-                //$scope.companyname = response.data[0].CompanyName + " (" + response.data[0].CompanyCode + ")";
+        $http.get("/Configuration/DashboardCompanyJsonData").then(function (company) {
+            if (company.data.length > 0 && company.status === 200) {
+                $scope.Companies = company.data;
+                $scope.GroupTotal = $scope._getGroupTotal(company.data);
+
+                $http.get("/Configuration/DashboardDivisionJsonData").then(function (division) {
+                    if (division.data.length > 0 && division.status === 200) {
+                        $scope.Divisions = division.data;
+                        //$scope.companycode = division.data[0].CompanyCode;
+                        //$scope.companyname = division.data[0].CompanyName + " (" + response.data[0].CompanyCode + ")";
+
+                        $scope._insertDivisions();
+                    }
+                });
             }
         });
+
         $http.get("/Configuration/DashboardDivisionJsonData").then(function (response) {
             if (response.data.length > 0 && response.status === 200) {
                 $scope._divisions = response.data;
@@ -28,6 +29,7 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
                 $scope.companyname = response.data[0].CompanyName + " (" + response.data[0].CompanyCode + ")";
             }
         });
+
         $http.get("/Configuration/DashboardUnitJsonData").then(function (response) {
             if (response.data.length > 0 && response.status === 200) {
                 $scope._units = response.data;
@@ -38,6 +40,29 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         });
     }
     openngDiologValidationUnit();
+    $scope._insertDivisions = function () {
+        if ($scope.Companies.length > 0 && $scope.Divisions.length > 0) {
+            for (var i = 0; i < $scope.Companies.length; i++) {
+                var companycode = $scope.Companies[i].CompanyCode;
+
+                var aDivisions = [];
+                for (var j = 0; j < $scope.Divisions.length; j++) {
+                    if (companycode === $scope.Divisions[j].CompanyCode) {
+                        var aDivision = {};
+                        aDivision.DivisionId = $scope.Divisions[j].DivisionId;
+                        aDivision.DivisionName = $scope.Divisions[j].DivisionName;
+                        aDivision.Budget = $scope.Divisions[j].Budget;
+                        aDivision.Actual = $scope.Divisions[j].Actual;
+                        aDivision.Shortage = $scope.Divisions[j].Shortage;
+                        aDivision.Excess = $scope.Divisions[j].Excess;
+
+                        aDivisions.push(aDivision);
+                    }
+                }
+                $scope.Companies[i].Divisions = aDivisions;
+            }
+        }
+    }
     $scope._getcompanytotal = function (data) {
         var total = 0;
         if (data.length > 0) {
@@ -47,12 +72,20 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         }
         return total;
     }
+    $scope._getGroupTotal = function (allCompany) {
+        var gtotal = 0;
+        for (var i = 0; i < allCompany.length; i++) {
+            var total = allCompany[i].Budget;
+            gtotal = parseInt(gtotal) + parseInt(total);
+        }
+        return gtotal;
+    }
+    
     $scope.OpenngDiologValidation_Dept = function (companyCode, event) {
         var comobj = {};
         comobj.CompanyId = companyCode;
         comobj.UnitId = event.target.id;
         var config = { params: comobj, headers: { 'Accept': "application/json" } };
-
         $http.get("/Configuration/DashboardHrfDepartmentJson", config).then(function (dept) {
             if (dept.status === 200) {
                 $http.get("/Configuration/DashboardHRFSectionJson", config).then(function (section) {
@@ -81,13 +114,7 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
 
                     comobj.sectionId = section[j].SectionId;
                     if (section[j].DeptId === comobj.deptId && section[j].SectionId === comobj.sectionId) {
-
-                        if (section[j].DeptId === 15 && section[j].SectionId === 35) {
-                            debugger;
-                        }
-
-                        //delete section[j].DeptId;
-                        //delete section[j].SectionId;
+                        
                         insertedSectiondata.push(section[j]);
                         $scope.insertedSubSection(insertedSectiondata, ssection, comobj);
                     }
@@ -190,6 +217,10 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
 
 
 
+
+
+
+
     //In controller
     $scope.exportAction = function () {
         alert("hi");
@@ -231,7 +262,6 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         row.append($("<td>" + rowData.firstName + "</td>"));
         row.append($("<td>" + rowData.lastName + "</td>"));
     }
-
 
     $scope._qualityMetrics = [
         { id: 1, metrictype: "quality", key: "SDUserStoryClosure", name: "1. Central Division" },

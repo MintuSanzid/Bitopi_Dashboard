@@ -9,17 +9,17 @@
         public string Actual { get; set; }
         public string Shartage { get; set; }
         public string Exceed { get; set; }
-        public string Unallocated { get; set; } 
+        public string Unallocated { get; set; }
 
     }
-    public class CompanyObj 
+    public class CompanyObj
     {
         public string CompanyId { get; set; }
         public string UnitId { get; set; }
         public int DivisionId { get; set; }
         public int DepartmentId { get; set; }
-        public int SectionId { get; set; } 
-        public int SubSectionId { get; set; }  
+        public int SectionId { get; set; }
+        public int SubSectionId { get; set; }
     }
 
     public class Employee
@@ -33,7 +33,7 @@
 
         public string BudgetCode { get; set; }
         public string SubSection { get; set; }
-        public string Line { get; set; } 
+        public string Line { get; set; }
 
         public double Total { get; set; }
         //  public Company ACompany { get; set; }
@@ -55,12 +55,14 @@
     }
     public class Division
     {
+        public string CompanyId { get; set; }
         public string CompanyCode { get; set; }
-        public string CompanyName { get; set; }
         public string DivisionId { get; set; }
         public string DivisionName { get; set; }
-        public int DivisionTotal { get; set; }
-        public int Unallocated { get; set; }
+        public int Budget { get; set; }
+        public int Actual { get; set; }
+        public int Shortage { get; set; }
+        public int Excess { get; set; }
     }
     public class Section
     {
@@ -75,7 +77,7 @@
         public int SSectionTotal { get; set; }
         public int SSectionId { get; set; }
         public int SectionId { get; set; }
-        public int DeptId { get; set; } 
+        public int DeptId { get; set; }
     }
     public class Line
     {

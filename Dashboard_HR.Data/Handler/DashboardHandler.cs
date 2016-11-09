@@ -67,6 +67,34 @@ namespace Dashboard_HR.Data.Handler
             var data = _aDashboardHr.GetHrDivisionFromDb();
             return ListGenerateDivision(data);
         }
+        private List<Division> ListGenerateDivision(DataTable aDivision)
+        {
+            try
+            {
+                _divisions = new List<Division>();
+                foreach (DataRow aRow in aDivision.Rows)
+                {
+                    var division = new Division
+                    {
+                        CompanyId = aRow["CompanyID"].ToString(),
+                        CompanyCode = aRow["CompanyCode"].ToString(),
+                        DivisionId = aRow["DivCD"].ToString(),
+                        DivisionName = aRow["Division"].ToString(),
+                        Budget = (int)aRow["Budget"],
+                        Actual = (int)aRow["Actual"],
+                        Shortage = (int)aRow["Shortage"],
+                        Excess = (int)aRow["Excess"] 
+                    };
+                    _divisions.Add(division);
+                }
+            }
+            catch (Exception ex)
+            {
+                return _divisions;
+            }
+            return _divisions;
+        }
+
         public List<ConpanyUnit> GetHrUnits()
         {
             _aDashboardHr = new DashboardHr();
@@ -143,33 +171,7 @@ namespace Dashboard_HR.Data.Handler
             }
             return _employees;
         }
-
-        private List<Division> ListGenerateDivision(DataTable aDivision)
-        {
-            try
-            {
-                _divisions = new List<Division>();
-                foreach (DataRow aRow in aDivision.Rows)
-                {
-                    var division = new Division
-                    {
-                        DivisionId = aRow[0].ToString(),
-                        DivisionName = aRow[1].ToString(),
-                        DivisionTotal = (int)aRow[2],
-                        Unallocated = (int)aRow[3],
-                        CompanyName = aRow[4].ToString(),
-                        CompanyCode = aRow[5].ToString()
-                    };
-                    _divisions.Add(division);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                return _divisions;
-            }
-            return _divisions;
-        }
+        
         private List<ConpanyUnit> ListGenerateUnit(DataTable aCompanyUnit)
         {
             // UnitCD, DT.UnitName, COUNT(*) UnitTotal, (SELECT COUNT(*) Unallocated
