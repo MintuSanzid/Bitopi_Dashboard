@@ -193,7 +193,7 @@ namespace Dashboard_HR.Repository.Repository
                 ADataTable = new DataTable();
                 try
                 {
-                    cmd = new SqlCommand("[Dashboard_Get_HR_AllEmployeeDetails]", conn);
+                    cmd = new SqlCommand("[Dashboard_Get_HR_UnAllocatedEmployeeDetails]", conn);
                     cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyCode));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;

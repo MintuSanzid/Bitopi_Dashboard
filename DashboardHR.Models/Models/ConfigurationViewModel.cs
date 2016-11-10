@@ -24,6 +24,8 @@
 
     public class Employee
     {
+        public string CompanyCode { get; set; }
+        public string CompanyName { get; set; }
         public int Id { get; set; }
         public string EmployeeCode { get; set; }
         public string EmployeeName { get; set; }
@@ -48,15 +50,21 @@
     {
         public string CompanyCode { get; set; }
         public string CompanyName { get; set; }
-        public string UnitId { get; set; }
+        public string UnitCode { get; set; }
         public string UnitName { get; set; }
-        public int UnitTotal { get; set; }
+        public int Budget { get; set; }
+        public int Actual { get; set; }
+        public int Shortage { get; set; }
+        public int Excess { get; set; }
         public int Unallocated { get; set; }
+        public int UnitTotal { get; set; }
+
     }
     public class Division
     {
         public string CompanyId { get; set; }
         public string CompanyCode { get; set; }
+        public string CompanyName { get; set; }
         public string DivisionId { get; set; }
         public string DivisionName { get; set; }
         public int Budget { get; set; }

@@ -8,15 +8,20 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         $http.get("/Configuration/DashboardCompanyJsonData").then(function (company) {
             if (company.data.length > 0 && company.status === 200) {
                 $scope.Companies = company.data;
+                //$scope.companycode = company.data[0].CompanyCode;
+                //$scope.companyname = company.data[0].CompanyName + " (" + company.data[0].CompanyCode + ")";
+
                 $scope.GroupTotal = $scope._getGroupTotal(company.data);
 
                 $http.get("/Configuration/DashboardDivisionJsonData").then(function (division) {
                     if (division.data.length > 0 && division.status === 200) {
                         $scope.Divisions = division.data;
-                        //$scope.companycode = division.data[0].CompanyCode;
-                        //$scope.companyname = division.data[0].CompanyName + " (" + response.data[0].CompanyCode + ")";
-
-                        $scope._insertDivisions();
+                       
+                        $http.get("/Configuration/DashboardUnitJsonData").then(function (unit) {
+                            $scope.Units = unit.data;
+                            $scope._insertDivisions();
+                        });
+                       
                     }
                 });
             }
@@ -25,8 +30,8 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         $http.get("/Configuration/DashboardDivisionJsonData").then(function (response) {
             if (response.data.length > 0 && response.status === 200) {
                 $scope._divisions = response.data;
-                $scope.companycode = response.data[0].CompanyCode;
-                $scope.companyname = response.data[0].CompanyName + " (" + response.data[0].CompanyCode + ")";
+                //$scope.companycode = response.data[0].CompanyCode;
+                //$scope.companyname = response.data[0].CompanyName + " (" + response.data[0].CompanyCode + ")";
             }
         });
 
@@ -49,6 +54,8 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
                 for (var j = 0; j < $scope.Divisions.length; j++) {
                     if (companycode === $scope.Divisions[j].CompanyCode) {
                         var aDivision = {};
+                        aDivision.CompanyCode = $scope.Divisions[j].CompanyCode;
+                        aDivision.CompanyName = $scope.Divisions[j].CompanyName;
                         aDivision.DivisionId = $scope.Divisions[j].DivisionId;
                         aDivision.DivisionName = $scope.Divisions[j].DivisionName;
                         aDivision.Budget = $scope.Divisions[j].Budget;
@@ -56,11 +63,48 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
                         aDivision.Shortage = $scope.Divisions[j].Shortage;
                         aDivision.Excess = $scope.Divisions[j].Excess;
 
+                        $scope._insertUnits(companycode);
+                        aDivision.Units = $scope.aCompanyUnits;
                         aDivisions.push(aDivision);
                     }
                 }
                 $scope.Companies[i].Divisions = aDivisions;
             }
+        }
+    }
+    $scope._insertUnits = function (companycode) {
+        if ($scope.Units.length > 0) {
+            var units = [];
+            for (var i = 0; i < $scope.Units.length; i++) {
+                if ($scope.Units[i].CompanyCode === companycode) {
+                    var aUnit = {};
+                    var value = $scope.Units[i].Shortage;
+                    aUnit.UnitCode = $scope.Units[i].UnitCode;
+                    aUnit.UnitName = $scope.Units[i].UnitName;
+                    aUnit.Budget = $scope.Units[i].Budget;
+                    aUnit.Actual = $scope.Units[i].Actual;
+                    aUnit.Shortage = $scope._getshortage($scope.Units[i].Shortage);
+                    aUnit.Excess = $scope._getexcess($scope.Units[i].Shortage);
+                    units.push(aUnit);
+                }
+            }
+            $scope.aCompanyUnits = units;
+        }
+        
+    }
+
+    $scope._getshortage = function (shortage) {
+        if (shortage > 0) {
+            return shortage;
+        } else {
+            return 0;
+        }
+    }
+    $scope._getexcess = function (shortage) {
+        if (shortage < 0) {
+            return Math.abs(shortage);
+        } else {
+            return 0;
         }
     }
     $scope._getcompanytotal = function (data) {
@@ -166,9 +210,13 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
     $scope.OpenngDiologValidation = function () {
         ngDialog.open({ template: "Validation_Id", controller: "ConfigurationController", className: "ngdialog-theme-default", scope: $scope });
     };
-    $scope._openUnallocated = function (companyCode) {
+    $scope._openUnallocated = function (event) {
+        $scope.companycode = event.target.id; 
+        $scope.companyname = event.target.title;
+        $rootScope.companycode = event.target.id;
+        $rootScope.companyname = event.target.title;
         $scope.employees = [];
-        $http.get("/Configuration/DashboardUnallocatedEmpList?companyCode=" + companyCode).then(function (response) {
+        $http.get("/Configuration/DashboardUnallocatedEmpList?companyCode=" + $scope.companycode).then(function (response) {
             if (response.data.length > 0 && response.status === 200) {
                 $scope.employees = response.data;
             }

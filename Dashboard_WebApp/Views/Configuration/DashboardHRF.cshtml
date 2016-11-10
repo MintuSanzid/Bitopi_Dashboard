@@ -34,7 +34,7 @@
                 <span class="goldenrod "> Budget </span>
                 <span class="col-md-offset-1 rosybrown "> Actual </span>
                 <span class="col-md-offset-1 yellowgreen "> Shortage </span>
-                <span class="col-md-offset-1 blueviolet "> Exceed </span>
+                <span class="col-md-offset-1 blueviolet "> Excess </span>
                 <span class="col-md-offset-1 red"> Unallocated </span>
             </span>
         </h2>
@@ -55,18 +55,19 @@
                     <span class="ng-scope bold"> Companies <i class="glyphicon glyphicon-arrow-down"></i></span>
                 </div>
                 <span ng-repeat="_C in Companies" class="tarasima">
-                    <h1 class=""> 
+                    <h1 class="">
                         <i class="glyphicon glyphicon-th-list"> </i> {{_C.CompanyName}}
                         <span class="col-md-4 pull-right">
                             <span class="col-md-offset-1 goldenrod"><i class="glyphicon glyphicon-briefcase"></i> {{_C.Budget}} </span>
                             <span class="col-md-offset-1 rosybrown"><i class="glyphicon glyphicon-ok"></i> {{_C.Actual}} </span>
                             <span class="col-md-offset-1 yellowgreen"><i class="glyphicon glyphicon-minus"></i> {{_C.Shartage | number:2}} </span>
                             <span class="col-md-offset-1 blueviolet"><i class="glyphicon glyphicon-plus"></i> {{_C.Exceed | number:2}} </span>
-                            <input type="hidden" ng-model="companycode" value="{{_C.CompanyCode}}" />
-                            <span class="pull-right text-center col-md-2 red" ng-click="_openUnallocated(companycode)"><i class="glyphicon glyphicon-edit"></i> {{_C.Unallocated}} </span>
+                            @*<input type="hidden" ng-model="companyname" value="{{_C.CompanyName}}" />
+                            <input type="hidden" ng-model="companycode" value="{{_C.CompanyCode}}" />*@
+                            <span id="{{_C.CompanyCode}}" title="{{_C.CompanyName}}" ng-click="_openUnallocated($event)" class="pull-right text-center col-md-2 red"><i class="glyphicon glyphicon-edit"></i> {{_C.Unallocated}} </span>
                         </span>
                     </h1>
-                 
+
                     <div class="tarasima">
                         <span class="ng-scope bold"> Division <i class="glyphicon glyphicon-forward"></i></span>
                         <span ng-repeat="d in _C.Divisions" class="ng-scope">
@@ -79,7 +80,41 @@
                                     <span class="blueviolet"><i class="glyphicon glyphicon-plus"></i> {{d.Excess | number:2}}</span>
                                 </span>
                             </h2>
-                           
+                            @*------------------*@
+                            <p>
+                                <label class="table" style="border-style: solid; border-width: 1px;">
+                                    <span class="col-md-2"><span class="glyphicon glyphicon-arrow-down btn btn-info btn-xs"> Units </span> </span>
+
+                                    <span class="col-md-1" style="width: 115px;"> <span style="padding-bottom: 10px;" class="goldenrod glyphicon glyphicon-briefcase"> Budget </span></span>
+                                    <span class="col-md-1" style="width: 115px;"> <span style="padding-bottom: 10px;" class="rosybrown glyphicon glyphicon-ok"> Actual </span></span>
+                                    <span class="col-md-1" style="width: 120px;"> <span style="padding-bottom: 10px;" class="yellowgreen glyphicon glyphicon-minus"> Shortage </span></span>
+                                    <span class="col-md-1" style="width: 115px;"> <span style="padding-bottom: 10px;" class="blueviolet glyphicon glyphicon-minus"> Excess </span></span>
+                                    <span class="col-md-1" style="width: 230px;">
+                                        @*<input type="hidden" ng-model="comname" value="{{d.CompanyName}}" />
+                                        <input type="hidden" ng-model="comcode" value="{{d.CompanyCode}}" />*@
+                                        <span id="{{_unit.CompanyCode}}" ng-click="_openUnallocated($event)" style="padding-bottom: 10px;" class="red glyphicon glyphicon-edit" > {{_C.Unallocated}} </span>
+                                    </span>
+                                    <span class="col-md-1"><a class="btn btn-info btn-xs" href=""> Action </a></span>
+                                </label>
+                                <span ng-repeat="_unit in d.Units">
+                                    <label ng-if="1" class="table" style="border-style: solid; border-width: 1px;">
+                                        <span class="col-md-2 td-left" style="margin: 5px">{{_unit.UnitName}} </span>
+
+                                        <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Budget | number:2}} </span>
+                                        <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Actual | number:2}} </span>
+                                        <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Shortage | number:2}} </span>
+                                        <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Excess | number:2}} </span>
+                                        <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Unallocated | number:2}} </span>
+                                        <span class="col-md-offset-1 col-md-1 td-btn">
+                                            <input type="hidden" ng-model="companycode" />
+                                            <input type="hidden" ng-model="unallocated" value="{{_unit.Unallocated | number:2}}" />
+                                            <a id="{{_unit.UnitId}}" ng-click="OpenngDiologValidation_Dept(companycode, $event)" class="btn btn-info btn-xs"> Show Unit Details </a>
+                                        </span>
+                                    </label>
+                                </span>
+
+                            </p>
+                            @*-----------------*@
                         </span>
                     </div>
                 </span>
@@ -118,7 +153,7 @@
             <table id="example" class="table table-condensed table-bordered table-striped">
                 <tr>
                     @*<th><input type="button" sections="exportAction" ng-click="exportAction()" /> </th>*@
-                    <label> {{companyname}} || Total: {{employees.length}}</label>
+                    <label > {{employees[1].CompanyName}} || Total: {{employees.length}}</label>
                 </tr>
                 <tr>
                     <th> Sr. </th>
