@@ -4,6 +4,7 @@ var app = angular.module("app", ["ngDialog"]);
 app.controller("ConfigurationController", function ($scope, $rootScope, $http, $filter, $window, ngDialog) {
 
     $scope.companyname = "Baridhi Grarments Ltd (BGL)";
+    var config = { params: null, headers: { 'Accept': "application/json" } };
     function openngDiologValidationUnit() {
         $http.get("/Configuration/DashboardCompanyJsonData").then(function (company) {
             if (company.data.length > 0 && company.status === 200) {
@@ -12,18 +13,24 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
                 //$scope.companyname = company.data[0].CompanyName + " (" + company.data[0].CompanyCode + ")";
 
                 $scope.GroupTotal = $scope._getGroupTotal(company.data);
-
+                
                 $http.get("/Configuration/DashboardDivisionJsonData").then(function (division) {
                     if (division.data.length > 0 && division.status === 200) {
                         $scope.Divisions = division.data;
-                       
+
                         $http.get("/Configuration/DashboardUnitJsonData").then(function (unit) {
-                            $scope.Units = unit.data;
-                            $scope._insertDivisions();
+                            if (unit.data.length > 0 && unit.status === 200) {
+                                $scope.Units = unit.data;
+                                $scope._insertDivisions();
+                            }
                         });
-                       
                     }
                 });
+                //$http.get("/Configuration/DashboardUnitJsonData", config).then(function (unit) {
+                //    if (unit.data.length > 0 && unit.status === 200)
+                //        $scope.Units = unit.data;
+                //    //$scope._insertDivisions();
+                //});
             }
         });
 
@@ -76,21 +83,23 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         if ($scope.Units.length > 0) {
             var units = [];
             for (var i = 0; i < $scope.Units.length; i++) {
+                var value = $scope.Units[i].Shortage;
                 if ($scope.Units[i].CompanyCode === companycode) {
                     var aUnit = {};
-                    var value = $scope.Units[i].Shortage;
+
+                    aUnit.CompanyCode = $scope.Units[i].CompanyCode;
+                    aUnit.CompanyName = $scope.Units[i].CompanyName;
                     aUnit.UnitCode = $scope.Units[i].UnitCode;
                     aUnit.UnitName = $scope.Units[i].UnitName;
                     aUnit.Budget = $scope.Units[i].Budget;
                     aUnit.Actual = $scope.Units[i].Actual;
-                    aUnit.Shortage = $scope._getshortage($scope.Units[i].Shortage);
-                    aUnit.Excess = $scope._getexcess($scope.Units[i].Shortage);
+                    aUnit.Shortage = value > 0 ? value : 0;
+                    aUnit.Excess = value < 0 ? Math.abs(value) : 0;
                     units.push(aUnit);
                 }
             }
             $scope.aCompanyUnits = units;
         }
-        
     }
 
     $scope._getshortage = function (shortage) {
@@ -124,10 +133,14 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         }
         return gtotal;
     }
-    
-    $scope.OpenngDiologValidation_Dept = function (companyCode, event) {
+
+    $scope.OpenngDiologValidation_Dept = function (event) {
+        var obj = event.target.title;
+        var aCompany = obj.split("_");
+        $scope.depts = [{ CompanyCode: "-(" + aCompany[0] + ")" }, { CompanyName: aCompany[1] }];
+
         var comobj = {};
-        comobj.CompanyId = companyCode;
+        comobj.CompanyId = aCompany[0];
         comobj.UnitId = event.target.id;
         var config = { params: comobj, headers: { 'Accept': "application/json" } };
         $http.get("/Configuration/DashboardHrfDepartmentJson", config).then(function (dept) {
@@ -147,7 +160,7 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
                 });
             }
         });
-        ngDialog.open({ template: "Validation_Table", controller: "ConfigurationController", className: "ngdialog-theme-default", scope: $scope });
+        ngDialog.open({ template: "Validation_DepartmentList", controller: "ConfigurationController", className: "ngdialog-theme-default", scope: $scope });
     };
     $scope.InsertSection = function (dept, section, ssection, comobj) {
         if (dept.length > 0) {
@@ -158,7 +171,7 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
 
                     comobj.sectionId = section[j].SectionId;
                     if (section[j].DeptId === comobj.deptId && section[j].SectionId === comobj.sectionId) {
-                        
+
                         insertedSectiondata.push(section[j]);
                         $scope.insertedSubSection(insertedSectiondata, ssection, comobj);
                     }
@@ -211,7 +224,7 @@ app.controller("ConfigurationController", function ($scope, $rootScope, $http, $
         ngDialog.open({ template: "Validation_Id", controller: "ConfigurationController", className: "ngdialog-theme-default", scope: $scope });
     };
     $scope._openUnallocated = function (event) {
-        $scope.companycode = event.target.id; 
+        $scope.companycode = event.target.id;
         $scope.companyname = event.target.title;
         $rootScope.companycode = event.target.id;
         $rootScope.companyname = event.target.title;

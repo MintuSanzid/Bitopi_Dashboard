@@ -106,9 +106,9 @@
                                         <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Excess | number:2}} </span>
                                         <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Unallocated | number:2}} </span>
                                         <span class="col-md-offset-1 col-md-1 td-btn">
-                                            <input type="hidden" ng-model="companycode" />
-                                            <input type="hidden" ng-model="unallocated" value="{{_unit.Unallocated | number:2}}" />
-                                            <a id="{{_unit.UnitId}}" ng-click="OpenngDiologValidation_Dept(companycode, $event)" class="btn btn-info btn-xs"> Show Unit Details </a>
+                                            @*<input type="hidden" ng-model="companycode" />
+                                            <input type="hidden" ng-model="unallocated" value="{{_unit.Unallocated | number:2}}" />*@
+                                            <a id="{{_unit.UnitCode}}" title="{{_unit.CompanyCode}}_{{_unit.CompanyName}}" ng-click="OpenngDiologValidation_Dept($event)" class="btn btn-info btn-xs"> Show Unit Details </a>
                                         </span>
                                     </label>
                                 </span>
@@ -121,7 +121,7 @@
                 @*@Html.Partial("_PartialCompanies/_MisamiGrarments")*@
 
 
-                <h1 class="">
+                @*<h1 class="">
                     <i class="glyphicon glyphicon-th-list"> </i> {{companyname}}
                     <span class="col-md-4 pull-right">
                         <span class="col-md-offset-1 goldenrod"><i class="glyphicon glyphicon-briefcase"></i> {{companybudgeted}} </span>
@@ -132,7 +132,7 @@
                         <span class="pull-right text-center col-md-2 red" ng-click="_openUnallocated(companycode)"><i class="glyphicon glyphicon-edit"></i> {{companyUnallocated}} </span>
                     </span>
                 </h1>
-                @Html.Partial("_PartialCompanies/_MisamiGrarments")
+                @Html.Partial("_PartialCompanies/_MisamiGrarments")*@
                 <h1 class=""> </h1>
             </aside>
             <div class="row col-md-12">
@@ -163,7 +163,7 @@
                     <th> Department </th>
                     <th> Remarks </th>
                 </tr>
-                <tr ng-repeat="e in employees | orderBy : 'Name'">
+                <tr ng-repeat="e in employees | orderBy : 'Designation'">
                     <td>{{ $index+1 }}</td>
                     <td>{{e.EmployeeCode }}</td>
                     <td>{{e.EmployeeName }}</td>
@@ -179,7 +179,7 @@
             <table id="example" class="table table-condensed table-bordered table-striped">
                 <tr>
                     @*<th><input type="button" sections="exportAction" ng-click="exportAction()" /> </th>*@
-                    <th><label> {{companyname}} </label></th>
+                    <label> {{employees[1].CompanyName}} || Total: {{employees.length}}</label>
                 </tr>
                 <tr>
                     <th> Sr. </th>
@@ -200,6 +200,81 @@
 
             </table>
 
+        </script>
+        <script type="text/ng-template" id="Validation_DepartmentList">
+
+            <table style="margin-top: 0px !important;" class="table table-condensed table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <label> {{depts[1].CompanyName}}{{depts[0].CompanyCode}} || Total Departments: {{departments.length}}</label>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th class=""> Sr. </th>
+                        <th class=""> DeptName </th>
+                        <th class=""> DeptTotal </th>
+                        <th class=""> Sections </th>
+
+                        @*<th ng-repeat="c in cols">{{c}}</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="dept in departments">
+                        <td>{{$index+1}} </td>
+                        <td ng-repeat="sections in dept" ng-init="isArr = isArray(sections)">
+                            <table ng-if="isArr" class="table table-condensed table-bordered table-striped" style="margin-bottom:0px">
+                                <thead>
+                                    <tr>
+                                        <th><button style="width: 20px;" ng-click="expanded = !expanded" expand><span ng-bind="expanded ? '-' : '+'"></span></button></th>
+                                        <th ng-repeat="(sh, sv) in sections[0]">{{sh}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="section in sections" ng-show="expanded">
+                                        <td> {{$index+1}}</td>
+                                        <td ng-repeat="subsections in section" ng-init="isArr = isArray(subsections)">
+
+                                            <table ng-if="isArr" class="table table-condensed table-bordered table-striped" style="margin-bottom:0px">
+                                                <thead>
+                                                    <tr>
+                                                        <td> <button style="width: 20px;" ng-click="expandedss = !expandedss" expand><span ng-bind="expandedss ? '-' : '+'"></span></button> </td>
+                                                        <th ng-repeat="(sj, ssv) in subsections[0]">{{sj}} </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="subs in subsections" ng-show="expandedss">
+                                                        <td> {{$index+1}}</td>
+                                                        <td ng-if="isArr" ng-repeat="subsv in subs" ng-init="isArr = isArray(subsv)">
+
+                                                            <table ng-if="isArr" class="table table-condensed table-bordered table-striped" style="margin-bottom:0px">
+                                                                <tbody>
+                                                                    <tr ng-repeat="lines in subsv" ng-show="expandedss">
+
+                                                                        <td ng-repeat="line in lines" ng-init="isArr = isArray(line)" class="blueviolet" ng-show="0" ng-if="isArr"> {{line}}_ </td>
+                                                                        <td>
+                                                                            <input type="hidden" ng-model="lines" value="{{lines}}" />
+                                                                            <button name="" class="btn btn-info btn-xs" style="width: 100px;" ng-click="ShowLineDetails(lines)"> Details </button>
+                                                                        </td>
+
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <span ng-if="!isArr">{{subsv}}</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <span ng-if="!isArr">{{subsections}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <span ng-if="!isArr">{{sections}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </script>
     </div>
 </div>

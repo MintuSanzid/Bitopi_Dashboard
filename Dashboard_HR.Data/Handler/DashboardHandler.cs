@@ -32,11 +32,17 @@ namespace Dashboard_HR.Data.Handler
             var data = _aDashboardHr.GetHrCompanyFromDb();
             return ListGenerateCompany(data);
         }
-        public List<Division> GetHrDivisions()
+
+        public List<Division> GetHrAllDivisions()
         {
-            var data = _aDashboardHr.GetHrDivisionFromDb();
+            var data = _aDashboardHr.GetHrAllDivisionFromDb();
             return ListGenerateDivision(data);
         }
+        //public List<Division> GetHrDivisions()
+        //{
+        //    var data = _aDashboardHr.GetHrDivisionFromDb();
+        //    return ListGenerateDivision(data);
+        //}
         public List<ConpanyUnit> GetHrUnits()
         {
             var data = _aDashboardHr.GetHrUnitsFromDb();
@@ -73,7 +79,7 @@ namespace Dashboard_HR.Data.Handler
             var data = _aDashboardHr.GetHrAllocatedEmpListFromDb(obj.CompanyId, obj.UnitId, obj.DepartmentId, obj.SectionId, obj.SubSectionId);
             return AllocatedEmpListGenerate(data);
         }
-        
+
         private List<Employee> UnallocatedEmpListGenerate(DataTable employee)
         {
             _employees = new List<Employee>();
@@ -101,17 +107,27 @@ namespace Dashboard_HR.Data.Handler
             {
                 //AE.CompanyName, AE.BudgetCode, AE.CompanyShortName, AE.EmployeeCode, E.EmployeeName, E.Designation,
                 //AE.SubSection, 'Line one' AS Line 
-                var aEmployee = new Employee
+                try
                 {
-                    EmployeeCode = aRow["EmployeeCode"].ToString(),
-                    EmployeeName = aRow["EmployeeName"].ToString(),
-                    Designation = aRow["Designation"].ToString(),
-                    BudgetCode = aRow["BudgetCode"].ToString(),
-                    SubSection = aRow["SubSection"].ToString(),
-                    Line = aRow["Line"].ToString(),
-                    Total = Convert.ToDouble(aRow["Total"].ToString())
-                };
-                _employees.Add(aEmployee);
+                    var aEmployee = new Employee
+                    {
+                        CompanyCode = aRow["CompanyCode"].ToString(),
+                        CompanyName = aRow["CompanyName"].ToString(),
+                        EmployeeCode = aRow["EmployeeCode"].ToString(),
+                        EmployeeName = aRow["EmployeeName"].ToString(),
+                        Designation = aRow["Designation"].ToString(),
+                        BudgetCode = aRow["BudgetCode"].ToString(),
+                        SubSection = aRow["SubSection"].ToString(),
+                        Line = aRow["Line"].ToString(),
+                        Total = Convert.ToDouble(aRow["Total"].ToString())
+                    };
+                    _employees.Add(aEmployee);
+
+                }
+                catch (Exception)
+                {
+                    return _employees;
+                }
             }
             return _employees;
         }
@@ -123,15 +139,19 @@ namespace Dashboard_HR.Data.Handler
                 _companies = new List<Company>();
                 foreach (DataRow aRow in companies.Rows)
                 {
+                    var value = (int)aRow["Shartage"];
+                    //// x != 0.0 ? Math.Sin(x) / x : 1.0;
+                    //value = value > 0 ? value : 0;
                     var company = new Company
                     {
+
                         CompanyId = Convert.ToInt32(aRow["CompanyId"]),
                         CompanyName = aRow["CompanyName"].ToString(),
                         CompanyCode = aRow["CompanyCode"].ToString(),
                         Budget = aRow["Budget"].ToString(),
                         Actual = aRow["Actual"].ToString(),
-                        Shartage = aRow["Shartage"].ToString(),
-                        Exceed = aRow["Exceed"].ToString(),
+                        Shartage = (value > 0 ? value : 0).ToString(),
+                        Exceed = (value < 0 ? Math.Abs(value) : 0).ToString(),
                         Unallocated = aRow["Unallocated"].ToString()
                     };
                     _companies.Add(company);
@@ -168,7 +188,7 @@ namespace Dashboard_HR.Data.Handler
             }
             catch (Exception ex)
             {
-                return _divisions;
+                throw ex;
             }
             return _divisions;
         }
@@ -183,7 +203,8 @@ namespace Dashboard_HR.Data.Handler
                     var conpanyUnit = new ConpanyUnit
                     {
                         CompanyCode = aRow["CompanyCode"].ToString(),
-                        UnitCode = aRow["UnitCD"].ToString(), 
+                        CompanyName = aRow["CompanyName"].ToString(),
+                        UnitCode = aRow["UnitCD"].ToString(),
                         UnitName = aRow["UnitName"].ToString(),
 
                         Budget = (int)aRow["Budget"],
@@ -191,7 +212,7 @@ namespace Dashboard_HR.Data.Handler
                         Shortage = (int)aRow["Shortage"],
                         Excess = (int)aRow["Excess"],
                         Unallocated = (int)aRow["Unallocated"]
-                        
+
                     };
                     _conpanyUnits.Add(conpanyUnit);
                 }
@@ -271,5 +292,7 @@ namespace Dashboard_HR.Data.Handler
             }
             return _ssections;
         }
+
+       
     }
 }

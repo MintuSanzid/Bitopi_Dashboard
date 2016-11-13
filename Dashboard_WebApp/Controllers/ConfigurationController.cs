@@ -10,13 +10,8 @@ namespace Dashboard_WebApp.Controllers
     [Authorize]
     public class ConfigurationController : Controller
     {
-        private readonly DashboardHandler _aDashboardHandler;
-
-        public ConfigurationController()
-        {
-            _aDashboardHandler = new DashboardHandler();
-        }
-
+        private  DashboardHandler _aDashboardHandler;
+        
         // GET: Configuration/DashboardHRF
         public ActionResult DashboardHrf() 
         {
@@ -26,6 +21,7 @@ namespace Dashboard_WebApp.Controllers
         // GET: Configuration/DashboardCompanyJsonData
         public JsonResult DashboardCompanyJsonData()
         {
+            _aDashboardHandler = new DashboardHandler();
             List<Company> data = _aDashboardHandler.GetHrCompanies(); 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -33,13 +29,15 @@ namespace Dashboard_WebApp.Controllers
         // GET: Configuration/DashboardDivisionJsonData
         public JsonResult DashboardDivisionJsonData()
         {
-            List<Division> data = _aDashboardHandler.GetHrDivisions();
+            _aDashboardHandler = new DashboardHandler();
+            List<Division> data = _aDashboardHandler.GetHrAllDivisions(); 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         
         // GET: Configuration/DashboardUnitJsonData
         public JsonResult DashboardUnitJsonData()
         {
+            _aDashboardHandler = new DashboardHandler();
             List<ConpanyUnit> data = _aDashboardHandler.GetHrUnits();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -47,27 +45,33 @@ namespace Dashboard_WebApp.Controllers
         // GET: Configuration/DashboardHRFJson
         public JsonResult DashboardHrfDepartmentJson(CompanyObj obj) 
         {
+            _aDashboardHandler = new DashboardHandler();
             List<Department> data = _aDashboardHandler.GetHrDepartments(obj.CompanyId, obj.UnitId);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        // GET: Configuration/DashboardHrfSectionJson
         public JsonResult DashboardHrfSectionJson(CompanyObj obj) 
         {
+            _aDashboardHandler = new DashboardHandler();
             List<Section> data = _aDashboardHandler.GetHrSections(obj.CompanyId, obj.UnitId);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult DashboardHrfSubSectionJson(CompanyObj obj)
         {
+            _aDashboardHandler = new DashboardHandler();
             List<SubSection> data = _aDashboardHandler.GetHrSubSections(obj.CompanyId, obj.UnitId);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult DashboardUnallocatedEmpList(string companyCode)
         {
+            _aDashboardHandler = new DashboardHandler();
             var data = _aDashboardHandler.GetHrUnallocatedEmpList(companyCode);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult DashboardAllocatedEmpList(CompanyObj companyObj)
         {
+            _aDashboardHandler = new DashboardHandler();
             var data = _aDashboardHandler.GetHrAllocatedEmpList(companyObj);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
