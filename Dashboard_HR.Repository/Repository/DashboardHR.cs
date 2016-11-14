@@ -9,7 +9,7 @@ namespace Dashboard_HR.Repository.Repository
     public class DashboardHr
     {
         public DataTable ADataTable;
-        private const string Con = "Server=192.168.10.5; database=HR; Trusted_Connection=False; Connection Timeout=3600; Pooling=false; uid=sa; pwd=sqlbis@^7*";
+        private const string Con = "Server=192.168.10.5; database=Dashboard; Trusted_Connection=False; Connection Timeout=3600; Pooling=false; uid=sa; pwd=sqlbis@^7*";
 
         public DataTable GetHrCompanyFromDb()
         {

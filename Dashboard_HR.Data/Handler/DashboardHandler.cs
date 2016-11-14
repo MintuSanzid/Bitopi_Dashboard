@@ -210,7 +210,6 @@ namespace Dashboard_HR.Data.Handler
                         Shortage = Convert.ToInt32(aRow["Shortage"]),
                         Excess = Convert.ToInt32(aRow["Excess"]),
                         Unallocated = Convert.ToInt32(aRow["Unallocated"])
-
                     };
                     _conpanyUnits.Add(conpanyUnit);
                 }
@@ -226,15 +225,19 @@ namespace Dashboard_HR.Data.Handler
             try
             {
                 _aDepartments = new List<Department>();
+                
                 foreach (DataRow aRow in aDataTable.Rows)
                 {
+                    var value = Convert.ToInt32(aRow["ShortageOrExcess"]);
+                   
                     var aDepartment = new Department
                     {
                         DeptId = Convert.ToInt32(aRow["DeptCD"]),
                         DeptName = aRow["Department"].ToString(),
-                        DeptTotal = Convert.ToInt32(aRow["DepartmentTotal"].ToString()), 
-                        Budget=Convert.ToInt32(aRow["Budget"].ToString()),
-                        ShortageOrExcess = Convert.ToInt32(aRow["[Shortage/Excess]"].ToString())
+                        Actual = Convert.ToInt32(aRow["Actual"]),
+                        Budget = Convert.ToInt32(aRow["Budget"]),
+                        ShortageOrExcess = GetNewValue(Convert.ToInt32(aRow["ShortageOrExcess"]))
+
                     };
                     _aDepartments.Add(aDepartment);
                 }
@@ -245,6 +248,14 @@ namespace Dashboard_HR.Data.Handler
             }
             return _aDepartments;
         }
+
+        private static string GetNewValue(int value)
+        {
+            if (value >= 0) return value.ToString();
+            var v = Math.Abs(value).ToString(); 
+            return  "(" + v + ")";
+        }
+
         private List<Section> ListGenerateSection(DataTable aDataTable)
         {
             try
@@ -255,7 +266,9 @@ namespace Dashboard_HR.Data.Handler
                     var aSection = new Section
                     {
                         SectionName = aRow["Section"].ToString(),
-                        SectionTotal = Convert.ToInt32(aRow["SectionTotal"].ToString()),
+                        Budget = Convert.ToInt32(aRow["Budget"].ToString()),
+                        Actual = Convert.ToInt32(aRow["Actual"].ToString()),
+                        ShortOrExcess = GetNewValue(Convert.ToInt32(aRow["ShortageOrExcess"])),
                         SectionId = Convert.ToInt32(aRow["SecCD"]),
                         DeptId = Convert.ToInt32(aRow["DeptCD"])
                     };
