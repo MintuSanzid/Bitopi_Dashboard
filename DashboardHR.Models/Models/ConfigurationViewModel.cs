@@ -45,6 +45,9 @@
         public int DeptId { get; set; }
         public string DeptName { get; set; }
         public int DeptTotal { get; set; }
+        public int Budget { get; set; }  
+        public int ShortageOrExcess { get; set; }
+        
     }
     public class ConpanyUnit
     {

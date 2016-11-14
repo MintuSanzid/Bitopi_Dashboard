@@ -139,9 +139,7 @@ namespace Dashboard_HR.Data.Handler
                 _companies = new List<Company>();
                 foreach (DataRow aRow in companies.Rows)
                 {
-                    var value = (int)aRow["Shartage"];
-                    //// x != 0.0 ? Math.Sin(x) / x : 1.0;
-                    //value = value > 0 ? value : 0;
+                    var value = Convert.ToInt32(aRow["Shartage"]);
                     var company = new Company
                     {
 
@@ -178,10 +176,10 @@ namespace Dashboard_HR.Data.Handler
                         CompanyName = aRow["CompanyName"].ToString(),
                         DivisionId = aRow["DivCD"].ToString(),
                         DivisionName = aRow["Division"].ToString(),
-                        Budget = (int)aRow["Budget"],
-                        Actual = (int)aRow["Actual"],
-                        Shortage = (int)aRow["Shortage"],
-                        Excess = (int)aRow["Excess"]
+                        Budget = Convert.ToInt32(aRow["Budget"]),
+                        Actual = Convert.ToInt32(aRow["Actual"]),
+                        Shortage = Convert.ToInt32(aRow["Shortage"]),
+                        Excess = Convert.ToInt32(aRow["Excess"])
                     };
                     _divisions.Add(division);
                 }
@@ -207,11 +205,11 @@ namespace Dashboard_HR.Data.Handler
                         UnitCode = aRow["UnitCD"].ToString(),
                         UnitName = aRow["UnitName"].ToString(),
 
-                        Budget = (int)aRow["Budget"],
-                        Actual = (int)aRow["Actual"],
-                        Shortage = (int)aRow["Shortage"],
-                        Excess = (int)aRow["Excess"],
-                        Unallocated = (int)aRow["Unallocated"]
+                        Budget = Convert.ToInt32(aRow["Budget"]),
+                        Actual = Convert.ToInt32(aRow["Actual"]),
+                        Shortage = Convert.ToInt32(aRow["Shortage"]),
+                        Excess = Convert.ToInt32(aRow["Excess"]),
+                        Unallocated = Convert.ToInt32(aRow["Unallocated"])
 
                     };
                     _conpanyUnits.Add(conpanyUnit);
@@ -232,9 +230,11 @@ namespace Dashboard_HR.Data.Handler
                 {
                     var aDepartment = new Department
                     {
-                        DeptId = (int)aRow["DeptCD"],
+                        DeptId = Convert.ToInt32(aRow["DeptCD"]),
                         DeptName = aRow["Department"].ToString(),
-                        DeptTotal = (int)aRow["DepartmentTotal"]
+                        DeptTotal = Convert.ToInt32(aRow["DepartmentTotal"].ToString()), 
+                        Budget=Convert.ToInt32(aRow["Budget"].ToString()),
+                        ShortageOrExcess = Convert.ToInt32(aRow["[Shortage/Excess]"].ToString())
                     };
                     _aDepartments.Add(aDepartment);
                 }
@@ -256,8 +256,8 @@ namespace Dashboard_HR.Data.Handler
                     {
                         SectionName = aRow["Section"].ToString(),
                         SectionTotal = Convert.ToInt32(aRow["SectionTotal"].ToString()),
-                        SectionId = (int)aRow["SecCD"],
-                        DeptId = (int)aRow["DeptCD"]
+                        SectionId = Convert.ToInt32(aRow["SecCD"]),
+                        DeptId = Convert.ToInt32(aRow["DeptCD"])
                     };
                     _sections.Add(aSection);
                 }
@@ -278,10 +278,10 @@ namespace Dashboard_HR.Data.Handler
                     var aSSection = new SubSection
                     {
                         SSection = aRow["SubSection"].ToString(),
-                        SSectionTotal = (int)aRow["SSectionTotal"],
-                        SSectionId = (int)aRow["SSecCD"],
-                        SectionId = (int)aRow["SecCD"],
-                        DeptId = (int)aRow["DeptCD"]
+                        SSectionTotal = Convert.ToInt32(aRow["SSectionTotal"]),
+                        SSectionId = Convert.ToInt32(aRow["SSecCD"]),
+                        SectionId = Convert.ToInt32(aRow["SecCD"]),
+                        DeptId = Convert.ToInt32(aRow["DeptCD"])
                     };
                     _ssections.Add(aSSection);
                 }
