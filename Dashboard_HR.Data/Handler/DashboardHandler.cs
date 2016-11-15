@@ -52,7 +52,7 @@ namespace Dashboard_HR.Data.Handler
         {
             _aDashboardHr = new DashboardHr();
             var data = _aDashboardHr.GetHrDepartmentsFromDb(companyCode, unitCode);
-            return ListGenerate(data);
+            return GenerateDepartmentList(data);
         }
         public List<Section> GetHrSections(string companyCode, string unitCode)
         {
@@ -220,7 +220,7 @@ namespace Dashboard_HR.Data.Handler
             }
             return _conpanyUnits;
         }
-        private List<Department> ListGenerate(DataTable aDataTable)
+        private List<Department> GenerateDepartmentList(DataTable aDataTable)
         {
             try
             {
@@ -228,8 +228,6 @@ namespace Dashboard_HR.Data.Handler
                 
                 foreach (DataRow aRow in aDataTable.Rows)
                 {
-                    var value = Convert.ToInt32(aRow["ShortageOrExcess"]);
-                   
                     var aDepartment = new Department
                     {
                         DeptId = Convert.ToInt32(aRow["DeptCD"]),
@@ -237,7 +235,6 @@ namespace Dashboard_HR.Data.Handler
                         Actual = Convert.ToInt32(aRow["Actual"]),
                         Budget = Convert.ToInt32(aRow["Budget"]),
                         ShortageOrExcess = GetNewValue(Convert.ToInt32(aRow["ShortageOrExcess"]))
-
                     };
                     _aDepartments.Add(aDepartment);
                 }
@@ -265,17 +262,17 @@ namespace Dashboard_HR.Data.Handler
                 {
                     var aSection = new Section
                     {
-                        SectionName = aRow["Section"].ToString(),
+                        Sections = aRow["Section"].ToString(), 
                         Budget = Convert.ToInt32(aRow["Budget"].ToString()),
                         Actual = Convert.ToInt32(aRow["Actual"].ToString()),
-                        ShortOrExcess = GetNewValue(Convert.ToInt32(aRow["ShortageOrExcess"])),
-                        SectionId = Convert.ToInt32(aRow["SecCD"]),
-                        DeptId = Convert.ToInt32(aRow["DeptCD"])
+                        Excess = GetNewValue(Convert.ToInt32(aRow["ShortageOrExcess"].ToString())),
+                        SectionId = Convert.ToInt32(aRow["SecCD"].ToString()),
+                        DeptId = Convert.ToInt32(aRow["DeptCD"].ToString())
                     };
                     _sections.Add(aSection);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return _sections;
             }
@@ -291,7 +288,9 @@ namespace Dashboard_HR.Data.Handler
                     var aSSection = new SubSection
                     {
                         SSection = aRow["SubSection"].ToString(),
-                        SSectionTotal = Convert.ToInt32(aRow["SSectionTotal"]),
+                        Budget = Convert.ToInt32(aRow["Budget"].ToString()),
+                        Actual = Convert.ToInt32(aRow["Actual"].ToString()),
+                        Excess = GetNewValue(Convert.ToInt32(aRow["ShortageOrExcess"].ToString())),
                         SSectionId = Convert.ToInt32(aRow["SSecCD"]),
                         SectionId = Convert.ToInt32(aRow["SecCD"]),
                         DeptId = Convert.ToInt32(aRow["DeptCD"])
@@ -299,7 +298,7 @@ namespace Dashboard_HR.Data.Handler
                     _ssections.Add(aSSection);
                 }
             }
-            catch (Exception)
+            catch (Exception ex) 
             {
                 return _ssections;
             }

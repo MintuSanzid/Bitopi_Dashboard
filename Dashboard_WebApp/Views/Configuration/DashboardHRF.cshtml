@@ -179,7 +179,7 @@
             <table id="example" class="table table-condensed table-bordered table-striped">
                 <tr>
                     @*<th><input type="button" sections="exportAction" ng-click="exportAction()" /> </th>*@
-                    <label> {{employees[1].CompanyName}} || Total: {{employees.length}}</label>
+                    <label> {{employees[1].CompanyName}} || Total: {{employees.length}} || Allocated Manpower Distribution</label>
                 </tr>
                 <tr>
                     <th> Sr. </th>
@@ -206,7 +206,7 @@
             <table style="margin-top: 0px !important;" class="table table-condensed table-bordered table-striped">
                 <thead>
                     <tr>
-                        <label> {{depts[1].CompanyName}}{{depts[0].CompanyCode}} || Total Departments: {{departments.length}}</label>
+                        <label> {{depts[1].CompanyName}}{{depts[0].CompanyCode}} || Total Departments: {{departments.length}} || Actual Manpower Distribution </label>
                     </tr>
                 </thead>
                 <thead>
@@ -215,7 +215,7 @@
                         <th class=""> DeptName </th>
                         <th class=""> Budget </th>
                         <th class=""> Actual </th>
-                        <th class=""> Short. Excess </th>
+                        <th class=""> Excess </th>
                         <th class=""> Sections </th>
 
                         @*<th ng-repeat="c in cols">{{c}}</th>*@

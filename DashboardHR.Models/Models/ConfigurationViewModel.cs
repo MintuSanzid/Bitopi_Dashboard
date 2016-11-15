@@ -77,20 +77,23 @@
     }
     public class Section
     {
-        public string SectionName { get; set; }
+        public string Sections { get; set; }
         public int Budget { get; set; } 
         public int Actual { get; set; }
-        public string ShortOrExcess { get; set; } 
+        public string Excess { get; set; } 
         public int DeptId { get; set; }
         public int SectionId { get; set; }
     }
     public class SubSection
     {
         public string SSection { get; set; }
-        public int SSectionTotal { get; set; }
+        public int Budget { get; set; }
+        public int Actual { get; set; }
+        public string Excess { get; set; }
         public int SSectionId { get; set; }
         public int SectionId { get; set; }
         public int DeptId { get; set; }
+       
     }
     public class Line
     {
