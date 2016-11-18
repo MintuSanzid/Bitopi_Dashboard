@@ -204,90 +204,90 @@ label {
 .rosybrown {
     background-color: #000000;
     padding: 5px;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     font-size: 15px;
     color: #d6d8e0;
     margin: 0px 5px 0px 0px;
 }
 
-    .rosybrown:hover {
+    /*.rosybrown:hover {
         background-color: #800080;
-        /*color: #ddd;
-        padding: 3px;*/
-        /*border-radius: 8px;*/
-        /*font-size: 15px;*/
-    }
+        color: #ddd;
+        padding: 3px;
+        border-radius: 8px;
+        font-size: 15px;
+    }*/
 
 
 .goldenrod {
     background-color: #008000;
     padding: 5px;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     font-size: 15px;
     color: #d6d8e0;
     margin: 0px 5px 0px 0px;
 }
 
-    .goldenrod:hover {
+    /*.goldenrod:hover {
         background-color: #800080;
-        /*color: #ddd;
+        color: #ddd;
         padding: 3px;
         border-radius: 8px;
-        font-size: 15px;*/
-    }
+        font-size: 15px;
+    }*/
 
 
 .yellowgreen {
     background-color: #919191;
     padding: 5px;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     font-size: 15px;
     color: #fff;
     margin: 0px 5px 0px 0px;
 }
 
-    .yellowgreen:hover {
+    /*.yellowgreen:hover {
         background-color: #800080;
-        /*padding: 3px;
+        padding: 3px;
         border-radius: 8px;
         font-size: 15px;
-        color: #fff;*/
-    }
+        color: #fff;
+    }*/
 
 
 .blueviolet {
     background-color: #800000;
     padding: 5px;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     font-size: 15px;
     color: #d6d8e0;
     margin: 0px 5px 0px 0px;
 }
 
-    .blueviolet:hover {
+    /*.blueviolet:hover {
         background-color: #800080;
-        /*color: #ddd;
+        color: #ddd;
         padding: 3px;
         border-radius: 8px;
-        font-size: 15px;*/
-    }
+        font-size: 15px;
+    }*/
 
 .red {
     background-color: #f50000;
     padding: 5px;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     font-size: 15px;
     color: #d6d8e0;
     margin: 0px 5px 0px 0px;
 }
 
-.blueviolet:hover {
+/*.blueviolet:hover {
     background-color: #800080;
-    /*color: #ddd;
+    color: #ddd;
         padding: 3px;
         border-radius: 8px;
-        font-size: 15px;*/
-}
+        font-size: 15px;
+}*/
 
 .small {
     padding: 3px 3px 8px 3px;

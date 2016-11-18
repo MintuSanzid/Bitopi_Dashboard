@@ -9,11 +9,11 @@ namespace Dashboard_HR.Repository.Repository
     public class DashboardHr
     {
         public DataTable ADataTable;
-        private const string Con = "Server=192.168.10.5; database=Dashboard; Trusted_Connection=False; Connection Timeout=3600; Pooling=false; uid=sa; pwd=sqlbis@^7*";
-
+        
+        private readonly string _con = DbConnection.GetDefaultConnection();
         public DataTable GetHrCompanyFromDb()
         {
-            using (var conn = new SqlConnection(Con))
+            using (var conn = new SqlConnection(_con))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -42,7 +42,7 @@ namespace Dashboard_HR.Repository.Repository
 
         public DataTable GetHrAllDivisionFromDb()
         {
-            using (var conn = new SqlConnection(Con))
+            using (var conn = new SqlConnection(_con))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -71,7 +71,7 @@ namespace Dashboard_HR.Repository.Repository
 
         public DataTable GetHrUnitsFromDb()
         {
-            using (var conn = new SqlConnection(Con))
+            using (var conn = new SqlConnection(_con))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -100,7 +100,7 @@ namespace Dashboard_HR.Repository.Repository
 
         public DataTable GetHrDepartmentsFromDb(string companyCode, string unitCode)
         {
-            using (var conn = new SqlConnection(Con))
+            using (var conn = new SqlConnection(_con))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -129,7 +129,7 @@ namespace Dashboard_HR.Repository.Repository
         }
         public DataTable GetHrSectionsFromDb(string companyCode, string unitCode)
         {
-            using (var conn = new SqlConnection(Con))
+            using (var conn = new SqlConnection(_con))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -158,7 +158,7 @@ namespace Dashboard_HR.Repository.Repository
         }
         public DataTable GetHrSubSectionsFromDb(string companyCode, string unitCode)
         {
-            using (var conn = new SqlConnection(Con))
+            using (var conn = new SqlConnection(_con))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -187,7 +187,7 @@ namespace Dashboard_HR.Repository.Repository
         }
         public DataTable GetHrUnallocatedEmpListFromDb(string companyCode)
         {
-            using (var conn = new SqlConnection(Con))
+            using (var conn = new SqlConnection(_con))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -216,7 +216,7 @@ namespace Dashboard_HR.Repository.Repository
 
         public DataTable GetHrAllocatedEmpListFromDb(string companyId, string unitId, int departmentid, int sectionId, int subSectionId)
         {
-            using (var conn = new SqlConnection(Con))
+            using (var conn = new SqlConnection(_con))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
