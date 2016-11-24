@@ -246,8 +246,34 @@ namespace Dashboard_HR.Repository.Repository
                 }
             }
         }
-
-
-
+        
+        public DataTable GetHrExcessEmpListFromDb(string companyCode)
+        {
+            using (var conn = new SqlConnection(_con))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                SqlDataAdapter da = new SqlDataAdapter();
+                ADataTable = new DataTable();
+                try
+                {
+                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_ExcessEmployeeDetails]", conn);
+                    cmd.Parameters.Add(new SqlParameter("@CompanyCode", companyCode));
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand = cmd;
+                    da.Fill(ADataTable);
+                    return ADataTable;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    conn.Close();
+                }
+            }
+        }
     }
 }

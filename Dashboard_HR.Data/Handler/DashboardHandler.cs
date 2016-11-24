@@ -26,23 +26,16 @@ namespace Dashboard_HR.Data.Handler
         {
             _aDashboardHr = new DashboardHr();
         }
-
         public List<Company> GetHrCompanies()
         {
             var data = _aDashboardHr.GetHrCompanyFromDb();
             return ListGenerateCompany(data);
         }
-
         public List<Division> GetHrAllDivisions()
         {
             var data = _aDashboardHr.GetHrAllDivisionFromDb();
             return ListGenerateDivision(data);
         }
-        //public List<Division> GetHrDivisions()
-        //{
-        //    var data = _aDashboardHr.GetHrDivisionFromDb();
-        //    return ListGenerateDivision(data);
-        //}
         public List<ConpanyUnit> GetHrUnits()
         {
             var data = _aDashboardHr.GetHrUnitsFromDb();
@@ -89,11 +82,13 @@ namespace Dashboard_HR.Data.Handler
                 {
                     CompanyCode = aRow["CompanyCode"].ToString(),
                     CompanyName = aRow["CompanyName"].ToString(),
+                    BudgetCode = aRow["EmpWiseBgtCD"].ToString(),
                     EmployeeCode = aRow["EmployeeCode"].ToString(),
                     EmployeeName = aRow["EmployeeName"].ToString(),
                     EmployeeStatus = aRow["EmployeeStatus"].ToString(),
                     Designation = aRow["Designation"].ToString(),
                     Department = aRow["Department"].ToString(),
+                    JoiningDate = Convert.ToDateTime(aRow["JoiningDate"]).ToShortDateString(),
                     Total = Convert.ToDouble(aRow["Total"].ToString())
                 };
                 _employees.Add(aEmployee);
@@ -113,10 +108,11 @@ namespace Dashboard_HR.Data.Handler
                     {
                         CompanyCode = aRow["CompanyCode"].ToString(),
                         CompanyName = aRow["CompanyName"].ToString(),
+                        BudgetCode = aRow["BudgetCode"].ToString(),
                         EmployeeCode = aRow["EmployeeCode"].ToString(),
                         EmployeeName = aRow["EmployeeName"].ToString(),
                         Designation = aRow["Designation"].ToString(),
-                        BudgetCode = aRow["BudgetCode"].ToString(),
+                        JoiningDate = Convert.ToDateTime(aRow["JoiningDate"]).ToShortDateString(),
                         SubSection = aRow["SubSection"].ToString(),
                         Line = aRow["Line"].ToString(),
                         Total = Convert.ToDouble(aRow["Total"].ToString())
@@ -248,9 +244,12 @@ namespace Dashboard_HR.Data.Handler
 
         private static string GetNewValue(int value)
         {
-            if (value >= 0) return value.ToString();
-            var v = Math.Abs(value).ToString(); 
-            return  "(" + v + ")";
+            if (value < 0)
+            {
+                var v = Math.Abs(value).ToString();
+                return "(" + v + ")";
+            }
+            return value.ToString();
         }
 
         private List<Section> ListGenerateSection(DataTable aDataTable)
@@ -304,7 +303,38 @@ namespace Dashboard_HR.Data.Handler
             }
             return _ssections;
         }
+         
+        public List<Employee> GetHrExcessEmpList(string companyCode)
+        {
+            _aDashboardHr = new DashboardHr();
+            var data = _aDashboardHr.GetHrExcessEmpListFromDb(companyCode);
+            return ExcessEmpListGenerate(data); 
+           
+        }
+        private List<Employee> ExcessEmpListGenerate(DataTable aDataTable)
+        {
+            _employees = new List<Employee>();
+            foreach (DataRow aRow in aDataTable.Rows)
+            {
+                var aEmployee = new Employee
+                {
+                    CompanyCode = aRow["CompanyCode"].ToString(),
+                    CompanyName = aRow["CompanyName"].ToString(),
+                    BudgetCode = aRow["BudgetCode"].ToString(),
+                    EmployeeCode = aRow["EmployeeCode"].ToString(),
+                    EmployeeName = aRow["EmployeeName"].ToString(),
+                    EmployeeStatus = aRow["EmployeeStatus"].ToString(),
+                    Designation = aRow["Designation"].ToString(),
+                    Department = aRow["Department"].ToString(),
+                    JoiningDate = Convert.ToDateTime(aRow["JoiningDate"].ToString()).ToShortDateString(),
+                    Total = Convert.ToDouble(aRow["Total"].ToString())
+                };
+                _employees.Add(aEmployee);
+            }
+            return _employees;
 
-       
+   //         SELECT E.CompanyCode, AE.CompanyName, AE.CompanyShortName, AE.EmployeeCode, AE.BudgetCode, E.EmployeeName, 
+			//E.Designation, E.DOJ,  AE.SubSection, 'Line one' AS Line, 08 as Total
+        }
     }
 }

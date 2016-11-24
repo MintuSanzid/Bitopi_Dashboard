@@ -1,4 +1,6 @@
-﻿namespace DashboardHR.Models.Models
+﻿using System;
+
+namespace DashboardHR.Models.Models
 {
     public class Company
     {
@@ -32,13 +34,12 @@
         public string EmployeeStatus { get; set; }
         public string Designation { get; set; }
         public string Department { get; set; }
-
+        public string JoiningDate { get; set; }
         public string BudgetCode { get; set; }
         public string SubSection { get; set; }
         public string Line { get; set; }
-
         public double Total { get; set; }
-        //  public Company ACompany { get; set; }
+        
     }
     public class Department
     {

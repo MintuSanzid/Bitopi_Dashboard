@@ -16,7 +16,7 @@ namespace Dashboard_WebApp
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Configuration", action = "Dashboard", id = UrlParameter.Optional }
+                defaults: new { controller = "Configuration", action = "DashboardHRF", id = UrlParameter.Optional }
             );
         }
     }
