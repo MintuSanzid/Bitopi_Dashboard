@@ -32,7 +32,7 @@
             <i class="glyphicon glyphicon-dashboard"></i> BITOPI GROUP
             <span class="col-md-offset-3 col-sm-offset-2"> Budget : {{GroupTotal}} </span>
             <span class="col-md-offset-1 "> Actual : {{GroupTotalActual}} </span>
-            @*<span class=""> Shortage : {{GroupTotalShortage}} ||</span>*@
+            @*<span class=""> Short : {{GroupTotalShort}} ||</span>*@
             <span class="col-md-offset-1"> Excess : {{GroupTotalExcess}} </span>
         </h2>
         @using (Html.BeginForm())
@@ -61,8 +61,9 @@
                             <span class="col-md-offset-1 col-md-2 col-sm-2 goldenrod"><i class="glyphicon glyphicon-briefcase"></i> {{_C.Budget | number:0}} </span>
                             <span class="col-md-offset-1 col-md-2 col-sm-2 rosybrown"><i class="glyphicon glyphicon-ok"></i> {{_C.Actual | number:0}} </span>
                             <span class="col-md-offset-1 col-md-2 col-sm-2 yellowgreen"><i class="glyphicon glyphicon-minus"></i> {{_C.Shartage | number:0}} </span>
-                            <span class="col-md-offset-1 col-md-2 col-sm-2 blueviolet" id="{{_C.CompanyCode}}" title="{{_C.CompanyName}}" ng-click="_openExcessList($event)" ><i class="glyphicon glyphicon-plus"></i> {{_C.Exceed | number:0}}</span>
-                            <span class="pull-right red  col-md-2 col-sm-2 " id="{{_C.CompanyCode}}" title="{{_C.CompanyName}}" ng-click="_openUnallocated($event)" ><i class="glyphicon glyphicon-edit"></i> {{_C.Unallocated | number:0}}
+                            <span class="col-md-offset-1 col-md-2 col-sm-2 blueviolet" id="{{_C.CompanyCode}}" title="{{_C.CompanyName}}" ng-click="_openExcessList($event)"><i class="glyphicon glyphicon-plus"></i> {{_C.Exceed | number:0}}</span>
+                            <span class="pull-right red  col-md-2 col-sm-2 " id="{{_C.CompanyCode}}" title="{{_C.CompanyName}}" ng-click="_openUnallocated($event)">
+                                <i class="glyphicon glyphicon-edit"></i> {{_C.Unallocated | number:0}}
                             </span>
                         </span>
                     </h1>
@@ -86,7 +87,7 @@
 
                                     <span class="col-md-1" style="width: 115px;"> <span style="padding-bottom: 10px;" class="goldenrod glyphicon glyphicon-briefcase"> Budget </span></span>
                                     <span class="col-md-1" style="width: 115px;"> <span style="padding-bottom: 10px;" class="rosybrown glyphicon glyphicon-ok"> Actual </span></span>
-                                    <span class="col-md-1" style="width: 120px;"> <span style="padding-bottom: 10px;" class="yellowgreen glyphicon glyphicon-minus"> Shortage </span></span>
+                                    <span class="col-md-1" style="width: 120px;"> <span style="padding-bottom: 10px;" class="yellowgreen glyphicon glyphicon-minus"> Short </span></span>
                                     <span class="col-md-1" style="width: 120px;"> <span style="padding-bottom: 10px;" class="blueviolet glyphicon glyphicon-plus"> Excess </span></span>
                                     <span class="col-md-1" style="width: 230px;">
                                         <span id="{{_unit.CompanyCode}}" ng-click="_openUnallocated($event)" style="padding-bottom: 10px;" class="red glyphicon glyphicon-edit"> {{_C.Unallocated}} </span>
@@ -158,7 +159,7 @@
             </table>
 
         </script>
-    <script type="text/ng-template" id="AllocatedEmpList">
+        <script type="text/ng-template" id="AllocatedEmpList">
 
             <table id="example" class="table table-condensed table-bordered table-striped">
                 <tr>
@@ -171,28 +172,28 @@
                     <th> EmployeeName </th>
                     <th> Designation </th>
                     <th> JoiningDate </th>
-                    <th> Line </th>
+                    @*<th> Line </th>*@
                     <th> Remarks </th>
                 </tr>
-                <tr ng-repeat="e in employees | orderBy : 'Designation'">
+                <tr ng-repeat="e in employees | orderBy : 'DesignationId'">
                     <td>{{ $index+1 }}</td>
                     <td>{{e.BudgetCode }}</td>
                     <td>{{e.EmployeeCode }}</td>
                     <td>{{e.EmployeeName }}</td>
                     <td>{{e.Designation }}</td>
                     <td>{{e.JoiningDate | date:'dd-MMM-yyyy'}}</td>
-                    <td>{{e.Line }}</td>
+                    @*<td>{{e.Line }}</td>*@
                     <td>{{e.EmployeeStatus}} </td>
                 </tr>
 
             </table>
 
         </script>
-    <script type="text/ng-template" id="ExcessEmpList">
+        <script type="text/ng-template" id="ExEmpList">
 
             <table id="example" class="table table-condensed table-bordered table-striped">
                 <tr>
-                    <label> {{Excessemployees[1].CompanyName}} || Total: {{Excessemployees.length}} || Allocated Manpower Distribution</label>
+                    <label> {{Exemployees[1].CompanyName}} || Total: {{Exemployees.length}} || Allocated Manpower Distribution</label>
                 </tr>
                 <tr>
                     <th> Sr. </th>
@@ -204,7 +205,7 @@
                     <th> JoiningDate </th>
                     <th> Remarks </th>
                 </tr>
-                <tr ng-repeat="e in Excessemployees | orderBy : 'Designation'">
+                <tr ng-repeat="e in Exemployees | orderBy : 'Designation'">
                     <td>{{ $index+1 }}</td>
                     <td>{{e.BudgetCode }}</td>
                     <td>{{e.EmployeeCode }}</td>
@@ -231,7 +232,8 @@
                         <th class=""> DeptName </th>
                         <th class=""> Budget </th>
                         <th class=""> Actual </th>
-                        <th class=""> Excess </th>
+                        <th class=""> Short </th>
+                        <th class=""> Ex </th>
                         <th class=""> Sections </th>
                         @*<th ng-repeat="c in cols">{{c}}</th>*@
                     </tr>

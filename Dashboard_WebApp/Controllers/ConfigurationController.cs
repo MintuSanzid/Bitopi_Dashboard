@@ -21,9 +21,21 @@ namespace Dashboard_WebApp.Controllers
         // GET: Configuration/DashboardCompanyJsonData
         public JsonResult DashboardCompanyJsonData()
         {
-            _aDashboardHandler = new DashboardHandler();
-            List<Company> data = _aDashboardHandler.GetHrCompanies();
-            return Json(data, JsonRequestBehavior.AllowGet);
+            List<Company> data = null;
+            try
+            {
+                var userId = Session["UserId"].ToString();
+                if (true)
+                {
+                    _aDashboardHandler = new DashboardHandler();
+                    data = _aDashboardHandler.GetHrCompanies(userId);
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Configuration/DashboardDivisionJsonData
@@ -82,7 +94,7 @@ namespace Dashboard_WebApp.Controllers
             var data = _aDashboardHandler.GetHrAllocatedEmpList(companyObj);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        
+
 
         //// GET: Configuration/DashboardHRFC
         //[ActionName("DashboardHRFC")]

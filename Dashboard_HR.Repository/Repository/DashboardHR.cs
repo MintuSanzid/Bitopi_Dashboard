@@ -11,7 +11,7 @@ namespace Dashboard_HR.Repository.Repository
         public DataTable ADataTable;
         
         private readonly string _con = DbConnection.GetDefaultConnection();
-        public DataTable GetHrCompanyFromDb()
+        public DataTable GetHrCompanyFromDb(string userId)
         {
             using (var conn = new SqlConnection(_con))
             {
@@ -22,7 +22,7 @@ namespace Dashboard_HR.Repository.Repository
                 try
                 {
                     cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_Companies]", conn);
-                    cmd.Parameters.Add(new SqlParameter("@UserId", "BGL"));
+                    cmd.Parameters.Add(new SqlParameter("@UserId", userId));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;
                     da.Fill(ADataTable);
@@ -50,7 +50,7 @@ namespace Dashboard_HR.Repository.Repository
                 ADataTable = new DataTable();
                 try
                 {
-                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_Divisions_Test]", conn);
+                    cmd = new SqlCommand("[dbo].[Dashboard_Get_HR_Divisions]", conn);
                     cmd.Parameters.Add(new SqlParameter("@UserId", "BGL"));
                     cmd.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand = cmd;

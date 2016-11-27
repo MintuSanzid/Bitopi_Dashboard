@@ -32,6 +32,7 @@ namespace DashboardHR.Models.Models
         public string EmployeeCode { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeStatus { get; set; }
+        public int DesignationId { get; set; }
         public string Designation { get; set; }
         public string Department { get; set; }
         public string JoiningDate { get; set; }
@@ -47,8 +48,9 @@ namespace DashboardHR.Models.Models
         public string DeptName { get; set; }
         public int Budget { get; set; }
         public int Actual { get; set; }
-        public string ShortageOrExcess { get; set; }
-        
+        public string Short { get; set; }
+        public string Ex { get; set; } 
+
     }
     public class ConpanyUnit
     {
@@ -81,7 +83,8 @@ namespace DashboardHR.Models.Models
         public string Sections { get; set; }
         public int Budget { get; set; } 
         public int Actual { get; set; }
-        public string Excess { get; set; } 
+        public string Short { get; set; }
+        public string Ex { get; set; }
         public int DeptId { get; set; }
         public int SectionId { get; set; }
     }
@@ -90,7 +93,8 @@ namespace DashboardHR.Models.Models
         public string SSection { get; set; }
         public int Budget { get; set; }
         public int Actual { get; set; }
-        public string Excess { get; set; }
+        public string Short { get; set; }
+        public string Ex { get; set; } 
         public int SSectionId { get; set; }
         public int SectionId { get; set; }
         public int DeptId { get; set; }

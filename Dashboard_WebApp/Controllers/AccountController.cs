@@ -79,6 +79,7 @@ namespace Dashboard_WebApp.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["UserId"] = model.Email;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -163,7 +164,7 @@ namespace Dashboard_WebApp.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("DashboardHRF", "Configuration");
                 }
                 AddErrors(result);
             }
@@ -333,6 +334,7 @@ namespace Dashboard_WebApp.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["UserId"] =loginInfo.Email;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -392,7 +394,7 @@ namespace Dashboard_WebApp.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
@@ -449,7 +451,7 @@ namespace Dashboard_WebApp.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("DashboardHRF", "Configuration");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
