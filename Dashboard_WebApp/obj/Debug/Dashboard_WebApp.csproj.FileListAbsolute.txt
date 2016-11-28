@@ -43,7 +43,10 @@ E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\Microsoft.Owin.Security.Twitter.dll
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\Microsoft.Web.Infrastructure.dll
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\Newtonsoft.Json.dll
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\Owin.dll
+E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Net.Http.Formatting.dll
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Web.Helpers.dll
+E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Web.Http.dll
+E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Web.Http.WebHost.dll
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Web.Mvc.dll
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Web.Optimization.dll
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Web.Razor.dll
@@ -60,6 +63,9 @@ E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\Microsoft.AI.Web.xml
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\Microsoft.AI.WindowsServer.xml
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\Microsoft.ApplicationInsights.xml
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Net.Http.Formatting.xml
+E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Web.Http.xml
+E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Web.Http.WebHost.xml
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Web.Helpers.xml
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Web.Mvc.xml
 E:\Dashboard_HR_GitHub\Dashboard_WebApp\bin\System.Web.Optimization.xml

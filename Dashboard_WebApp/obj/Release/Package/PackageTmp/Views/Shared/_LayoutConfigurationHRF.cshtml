@@ -18,7 +18,10 @@
 </head>
 
 <div id="wrapper">
-    <div class="w1">      
+    <div class="w1">
+        <div class="navbar-collapse collapse">
+            @Html.Partial("_LoginPartial")
+        </div>
         @RenderBody()
     </div>
 </div>

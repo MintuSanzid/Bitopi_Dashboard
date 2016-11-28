@@ -13,7 +13,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2016 12:33:10</publishTime>
     </File>
     <File Include="App/ConfigurationController.js">
-      <publishTime>11/23/2016 11:21:24</publishTime>
+      <publishTime>11/24/2016 12:59:23</publishTime>
     </File>
     <File Include="App/ConfigurationDynamic.js">
       <publishTime>08/01/2016 11:34:36</publishTime>
@@ -2068,16 +2068,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/06/2016 12:25:52</publishTime>
     </File>
     <File Include="bin/DashboardHR.Models.dll">
-      <publishTime>11/23/2016 14:41:57</publishTime>
+      <publishTime>11/27/2016 16:32:29</publishTime>
     </File>
     <File Include="bin/Dashboard_HR.Data.dll">
-      <publishTime>11/23/2016 14:42:01</publishTime>
+      <publishTime>11/27/2016 16:32:30</publishTime>
     </File>
     <File Include="bin/Dashboard_HR.Repository.dll">
-      <publishTime>11/23/2016 14:41:57</publishTime>
+      <publishTime>11/27/2016 16:32:29</publishTime>
     </File>
     <File Include="bin/Dashboard_WebApp.dll">
-      <publishTime>11/23/2016 14:42:21</publishTime>
+      <publishTime>11/27/2016 16:32:35</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 22:32:26</publishTime>
@@ -6529,19 +6529,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/23/2016 11:54:14</publishTime>
     </File>
     <File Include="Views/Configuration/DashboardHR.cshtml">
-      <publishTime>10/23/2016 13:08:20</publishTime>
+      <publishTime>11/24/2016 12:56:40</publishTime>
     </File>
     <File Include="Views/Configuration/DashboardHRAW.cshtml">
       <publishTime>10/19/2016 10:50:46</publishTime>
     </File>
     <File Include="Views/Configuration/DashboardHRF.cshtml">
-      <publishTime>11/23/2016 14:31:50</publishTime>
+      <publishTime>11/27/2016 11:20:12</publishTime>
     </File>
     <File Include="Views/Configuration/DashboardHRFC.cshtml">
       <publishTime>10/21/2016 14:42:18</publishTime>
     </File>
     <File Include="Views/Configuration/DashboardHRP.cshtml">
-      <publishTime>10/10/2016 13:08:02</publishTime>
+      <publishTime>11/24/2016 12:56:40</publishTime>
     </File>
     <File Include="Views/Configuration/Details.cshtml">
       <publishTime>08/01/2016 11:34:44</publishTime>
@@ -6598,13 +6598,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/06/2016 12:24:48</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>10/24/2016 09:41:48</publishTime>
+      <publishTime>11/27/2016 13:26:32</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutConfiguration.cshtml">
       <publishTime>10/24/2016 15:10:18</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutConfigurationHRF.cshtml">
-      <publishTime>10/31/2016 14:07:42</publishTime>
+      <publishTime>11/27/2016 13:43:24</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutDashboard.cshtml">
       <publishTime>11/08/2016 10:31:12</publishTime>
@@ -6613,7 +6613,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/21/2016 09:21:26</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
-      <publishTime>10/06/2016 12:24:48</publishTime>
+      <publishTime>11/27/2016 16:25:02</publishTime>
     </File>
     <File Include="Views/Shared/_PartialCompanies/_Catagories.cshtml">
       <publishTime>10/13/2016 14:36:02</publishTime>
@@ -6625,7 +6625,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/13/2016 14:57:56</publishTime>
     </File>
     <File Include="Views/Shared/_PartialCompanies/_Designations.cshtml">
-      <publishTime>10/13/2016 15:02:56</publishTime>
+      <publishTime>11/24/2016 12:56:40</publishTime>
     </File>
     <File Include="Views/Shared/_PartialCompanies/_EmpNames.cshtml">
       <publishTime>10/12/2016 18:10:46</publishTime>
@@ -6652,7 +6652,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/13/2016 18:32:02</publishTime>
     </File>
     <File Include="Views/Shared/_PartialCompanies/_TarasimaUnits_Final.cshtml">
-      <publishTime>11/10/2016 13:34:21</publishTime>
+      <publishTime>11/24/2016 12:56:59</publishTime>
     </File>
     <File Include="Views/Shared/_PartialCompanies/_TarasimaUnits_Final2.cshtml">
       <publishTime>10/25/2016 09:41:34</publishTime>

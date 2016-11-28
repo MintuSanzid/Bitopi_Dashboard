@@ -50,6 +50,14 @@
                     </p>*@
             }
         </section>
+        @using (Html.BeginForm("LoginFromBis", "Account", new { userCode = "08888" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Log in From BIS" class="btn btn-default" />
+                </div>
+            </div>
+        }
     </div>
     <div class="col-md-4">
         <section id="socialLoginForm">

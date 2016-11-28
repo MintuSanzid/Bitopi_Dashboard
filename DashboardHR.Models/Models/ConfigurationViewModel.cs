@@ -1,7 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DashboardHR.Models.Models
 {
+    public class Buyer
+    {
+        public int BuyerId { get; set; }
+        public string BuyerCode { get; set; }
+        public string BuyerName { get; set; }
+    }
+
+    public class Merchant
+    {
+        public int MerchantId { get; set; }
+        public string MerchantCode { get; set; }
+        public string MerchantName { get; set; }
+    }
     public class Company
     {
         public int CompanyId { get; set; }
@@ -40,7 +54,7 @@ namespace DashboardHR.Models.Models
         public string SubSection { get; set; }
         public string Line { get; set; }
         public double Total { get; set; }
-        
+
     }
     public class Department
     {
@@ -49,7 +63,7 @@ namespace DashboardHR.Models.Models
         public int Budget { get; set; }
         public int Actual { get; set; }
         public string Short { get; set; }
-        public string Ex { get; set; } 
+        public string Ex { get; set; }
 
     }
     public class ConpanyUnit
@@ -81,7 +95,7 @@ namespace DashboardHR.Models.Models
     public class Section
     {
         public string Sections { get; set; }
-        public int Budget { get; set; } 
+        public int Budget { get; set; }
         public int Actual { get; set; }
         public string Short { get; set; }
         public string Ex { get; set; }
@@ -94,11 +108,11 @@ namespace DashboardHR.Models.Models
         public int Budget { get; set; }
         public int Actual { get; set; }
         public string Short { get; set; }
-        public string Ex { get; set; } 
+        public string Ex { get; set; }
         public int SSectionId { get; set; }
         public int SectionId { get; set; }
         public int DeptId { get; set; }
-       
+
     }
     public class Line
     {
@@ -124,4 +138,28 @@ namespace DashboardHR.Models.Models
         //public ThumbnailEntity ThumbnailEntity { get; set; }
     }
 
+    public class Businessplan
+    {
+        public List<Buyer> Buyers { get; set; }
+        public List<Merchant> Merchants { get; set; } 
+        public List<Company> Companies { get; set; } 
+    }
+
+    public class BusinessplanData 
+    {
+        public string BusinessName { get; set; }
+        public string Month0 { get; set; }
+        public string Month1 { get; set; }
+        public string Month2 { get; set; }
+        public string Month3 { get; set; }
+        public string Month4 { get; set; }
+        public string Month5 { get; set; }
+        public string Month6 { get; set; }
+        public string Month7 { get; set; }
+        public string Month8 { get; set; }
+        public string Month9 { get; set; }
+        public string Month10 { get; set; }
+        public string Month11 { get; set; }
+        
+    }
 }

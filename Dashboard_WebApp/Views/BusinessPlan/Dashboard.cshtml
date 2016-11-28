@@ -1,0 +1,132 @@
+﻿
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_LayoutConfigurationHRF.cshtml";
+}
+
+<script src="~/Scripts/angular.js"></script>
+<script type="text/javascript" src="~/Scripts/ngDialog.js"></script>
+<link href="~/Content/ngDialog.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Content/ngDialog.css">
+<link rel="stylesheet" href="~/Content/ngDialog-theme-default.css">
+
+<script src="~/Scripts/angular-resource.js"></script>
+<script src="~/Scripts/angular-route.js"></script>
+<script src="~/App/BusinessplanController.js"></script>
+
+<link href="~/Content/Configuration/css/style.css" rel="stylesheet" />
+<link href="http://fonts.googleapis.com/css?family=News+Cycle:400,700" rel='stylesheet' type='text/css'>
+<link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables_themeroller.css">
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
+
+<br />
+<div class="body-content">
+    <div ng-app="app" ng-controller="BusinessplanController" class="container-dash">
+        <h2 class="" style="height: 75px;">
+
+            <span class="">
+
+                @*<span class="col-md-12" ng-class="{ 'has-error' : updateForm.status_update.$invalid && !updateForm.status_update.$pristine }">
+                    <label class="col-md-4 col-sm-4 text-right"> Status : </label>
+                    <select class="col-md-12 form-control" name="status_update" id="Pro_Status_Update" required ng-model="Pro_Status_Update" ng-options="object.StatusCode as object.Status for object in Pro_Statuses" style="width: 265px; margin-bottom: 5px;">
+                        <option value=""> Select Status </option>
+                    </select>
+                    <span ng-show="updateForm.status_update.$invalid && !updateForm.status_update.$pristine" class="help-block"> status is required. </span>
+                </span>*@
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="BuyerName"> Buyer Name</label>
+                        <select ng-model="BuyerCode" ng-options="buyer.BuyerCode as buyer.BuyerName for buyer in Buyers" id="BuyerName" class="form-control" required>
+                            <option value=""> Select Buyer Name </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="merchant"> DMM Name</label>
+                        <select ng-model="MerchantCode" ng-options="merchant.MerchantCode as merchant.MerchantName for merchant in Merchants" id="merchant" class="form-control" required>
+                            <option value=""> Select DMM Name </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for=""> Company Name </label>
+                        <select ng-model="CompanyCode" ng-options="company.CompanyCode as company.CompanyName for company in Companies" ng-change="ShowBusinessPlan()" class="form-control" required>
+                            <option value="">Select Company Name </option>
+                        </select>
+                    </div>
+                </div>
+
+            </span>
+        </h2>
+        <br />
+
+        <div class="col-lg-12">
+            <br/>
+            <br />
+            <table class="responsive-table table" style="border: 1px solid white;">
+                <tr>
+                    <th class="text-center h6">BB Name </th>
+                    <th class="text-center h6" ng-repeat="m in SetMonths">
+                        <label id="{{$index+1-1}}Month" value="{{m}}" for="Active">{{m}} </label>
+                    </th>
+                </tr>
+                <tr ng-repeat="b in Bsinessplans">
+                    <td>{{b.BusinessName}}</td>
+                    <td>{{b.Month0}}</td>
+                    <td>{{b.Month0}}</td>
+                    <td>{{b.Month0}}</td>
+                    <td>{{b.Month0}}</td>
+                    <td>{{b.Month0}}</td>
+                    <td>{{b.Month0}}</td>
+                    <td>{{b.Month0}}</td>
+                    <td>{{b.Month0}}</td>
+                    <td>{{b.Month0}}</td>
+                    <td>{{b.Month0}}</td>
+                    <td>{{b.Month0}}</td>
+                    <td>{{b.Month0}}</td>
+                </tr>
+                @*<tr>
+                    <td><input ng-model="Month0" id="Month0" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                    <td><input ng-model="Month1" id="Month1" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                    <td><input ng-model="Month2" id="Month2" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                    <td><input ng-model="Month3" id="Month3" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                    <td><input ng-model="Month4" id="Month4" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                    <td><input ng-model="Month5" id="Month5" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                    <td><input ng-model="Month6" id="Month6" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                    <td><input ng-model="Month7" id="Month7" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                    <td><input ng-model="Month8" id="Month8" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                    <td><input ng-model="Month9" id="Month9" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                    <td><input ng-model="Month10" id="Month10" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                    <td><input ng-model="Month11" id="Month11" onkeyup="totalCountAssumptionQty()" min="0" max="1000000" type="number" class="form-control text-center" placeholder="00" value="0"/> </td>
+                </tr>*@
+            </table>
+
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        function totalCountAssumptionQty() {
+            var total = 0;
+            for (var i = 0; i < 12; i++) {
+                var t = $("#Month" + i).val();
+                if (t !== "") {
+                    $("#Month" + i).val(parseInt(t));
+                    total = parseInt(total) + parseInt(t);
+                } else {
+                    $("#Month" + i).val(0);
+                }
+            }
+
+            $("#AssumptionQuantity").val(total);
+        };
+    </script>
+</div>

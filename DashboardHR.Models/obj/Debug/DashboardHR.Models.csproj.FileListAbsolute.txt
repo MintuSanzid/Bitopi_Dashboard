@@ -13,4 +13,3 @@ E:\Dashboard_HR_GitHub\DashboardHR.Models\bin\Debug\DashboardHR.Models.dll
 E:\Dashboard_HR_GitHub\DashboardHR.Models\bin\Debug\DashboardHR.Models.pdb
 E:\Dashboard_HR_GitHub\DashboardHR.Models\obj\Debug\DashboardHR.Models.dll
 E:\Dashboard_HR_GitHub\DashboardHR.Models\obj\Debug\DashboardHR.Models.pdb
-E:\Dashboard_HR_GitHub\DashboardHR.Models\obj\Debug\DashboardHR.Models.csprojResolveAssemblyReference.cache

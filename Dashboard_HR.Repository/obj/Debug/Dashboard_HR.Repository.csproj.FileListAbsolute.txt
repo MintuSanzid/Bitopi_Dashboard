@@ -15,4 +15,3 @@ E:\Dashboard_HR_GitHub\Dashboard_HR.Repository\bin\Debug\Dashboard_HR.Repository
 E:\Dashboard_HR_GitHub\Dashboard_HR.Repository\bin\Debug\Dashboard_HR.Repository.pdb
 E:\Dashboard_HR_GitHub\Dashboard_HR.Repository\obj\Debug\Dashboard_HR.Repository.dll
 E:\Dashboard_HR_GitHub\Dashboard_HR.Repository\obj\Debug\Dashboard_HR.Repository.pdb
-E:\Dashboard_HR_GitHub\Dashboard_HR.Repository\obj\Debug\Dashboard_HR.Repository.csprojResolveAssemblyReference.cache

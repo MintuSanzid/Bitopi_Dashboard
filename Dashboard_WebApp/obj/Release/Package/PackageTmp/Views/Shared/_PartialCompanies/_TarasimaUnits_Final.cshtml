@@ -5,8 +5,8 @@
 
         <span class="col-md-1" style="width: 115px;"> <span style="padding-bottom: 10px;" class="goldenrod glyphicon glyphicon-briefcase"> Budget </span></span>
         <span class="col-md-1" style="width: 115px;"> <span style="padding-bottom: 10px;" class="rosybrown glyphicon glyphicon-ok"> Actual </span></span>
-        <span class="col-md-1" style="width: 120px;"> <span style="padding-bottom: 10px;" class="yellowgreen glyphicon glyphicon-minus"> Shortage </span></span>
-        <span class="col-md-1" style="width: 115px;"> <span style="padding-bottom: 10px;" class="blueviolet glyphicon glyphicon-minus"> Excess </span></span>
+        <span class="col-md-1" style="width: 120px;"> <span style="padding-bottom: 10px;" class="yellowgreen glyphicon glyphicon-minus"> Short </span></span>
+        <span class="col-md-1" style="width: 115px;"> <span style="padding-bottom: 10px;" class="blueviolet glyphicon glyphicon-minus"> Ex </span></span>
         <span class="col-md-1" style="width: 230px;"> <span style="padding-bottom: 10px;" class="red glyphicon glyphicon-minus"> Unallocated </span></span>
         <span class="col-md-1"><a class="btn btn-info btn-xs" href=""> Action </a></span>
     </label>
@@ -16,8 +16,8 @@
 
             <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Budget | number:2}} </span>
             <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Actual | number:2}} </span>
-            <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Shortage | number:2}} </span>
-            <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Excess | number:2}} </span>
+            <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Short | number:2}} </span>
+            <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Ex | number:2}} </span>
             <span class="col-md-offset-1 col-md-1 td" style="margin: 5px"> {{_unit.Unallocated | number:2}} </span>
             <span class="col-md-offset-1 col-md-1 td-btn">
                 <input type="hidden" ng-model="companycode" />
